@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Physics C: Mechanics — Complete Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  :root {
+    --bg:       #080c18;
+    --bg2:      #0d1220;
+    --bg3:      #131826;
+    --panel:    #1a2035;
+    --border:   #1f2d4a;
+    --blue:     #4fc3f7;
+    --blue2:    #0288d1;
+    --gold:     #ffd54f;
+    --green:    #69f0ae;
+    --red:      #ff6b6b;
+    --purple:   #ce93d8;
+    --text:     #e8eaf6;
+    --muted:    #7986cb;
+    --dim:      #546e7a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .sidebar-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--bg2);
+    z-index: 10;
+  }
+  .sidebar-header .course-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .sidebar-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .unit-nav { padding: 16px 0; flex: 1; }
+  .unit-nav-item {
+    display: block;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+  }
+  .unit-nav-item:hover, .unit-nav-item.active {
+    background: rgba(79,195,247,0.06);
+    border-left-color: var(--blue);
+  }
+  .unit-nav-item .unit-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--blue);
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+  }
+  .unit-nav-item .unit-name {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.3;
+  }
+  .unit-nav-item.active .unit-name { color: #fff; font-weight: 600; }
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  /* MAIN */
+  #main {
+    margin-left: 280px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #080c18 0%, #0d1a35 40%, #0a1628 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 64px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(79,195,247,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: 'F = ma';
+    position: absolute;
+    bottom: 20px; right: 64px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(79,195,247,0.04);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--blue);
+    text-transform: uppercase;
+    border: 1px solid rgba(79,195,247,0.3);
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  .hero h2 span { color: var(--blue); }
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* CONTENT */
+  .content { padding: 0 64px 80px; }
+
+  /* UNIT SECTION */
+  .unit-section {
+    margin-top: 72px;
+    scroll-margin-top: 24px;
+  }
+  .unit-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .unit-number-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--bg2);
+    background: var(--blue);
+    padding: 4px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: 6px;
+  }
+  .unit-header-text {}
+  .unit-header-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .unit-overview {
+    font-size: 15.5px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 740px;
+  }
+
+  /* LESSON CARD */
+  .lesson-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .lesson-card:hover { border-color: rgba(79,195,247,0.3); }
+  .lesson-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .lesson-header-left { display: flex; align-items: center; gap: 16px; }
+  .lesson-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    background: rgba(79,195,247,0.1);
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+  .lesson-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .lesson-toggle {
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-family: monospace;
+  }
+  .lesson-card.open .lesson-toggle { transform: rotate(90deg); color: var(--blue); }
+  .lesson-body {
+    display: none;
+    padding: 0 28px 28px;
+    border-top: 1px solid var(--border);
+  }
+  .lesson-card.open .lesson-body { display: block; }
+
+  /* LESSON BODY SECTIONS */
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin: 28px 0 12px;
+  }
+  .explanation {
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: #c5cae9;
+    max-width: 760px;
+  }
+  .explanation p { margin-bottom: 14px; }
+
+  /* EQUATIONS */
+  .equations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .eq-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 3px;
+    padding: 14px 16px;
+  }
+  .eq-formula {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .eq-meaning {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* MISTAKES */
+  .mistakes-list { display: flex; flex-direction: column; gap: 8px; }
+  .mistake-item {
+    display: flex;
+    gap: 12px;
+    background: rgba(255,107,107,0.05);
+    border: 1px solid rgba(255,107,107,0.15);
+    border-radius: 3px;
+    padding: 12px 16px;
+    font-size: 14.5px;
+    color: #ef9a9a;
+    line-height: 1.5;
+  }
+  .mistake-item::before {
+    content: '✗';
+    color: var(--red);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* PRACTICE */
+  .practice-list { display: flex; flex-direction: column; gap: 16px; }
+  .practice-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .practice-q {
+    padding: 16px 20px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .practice-q strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--purple);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .reveal-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(79,195,247,0.05);
+    border: none;
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--blue);
+    text-transform: uppercase;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .reveal-btn:hover { background: rgba(79,195,247,0.1); }
+  .practice-answer {
+    display: none;
+    padding: 14px 20px;
+    background: rgba(105,240,174,0.04);
+    border-top: 1px solid rgba(105,240,174,0.15);
+    font-size: 14px;
+    color: #a5d6a7;
+    line-height: 1.65;
+  }
+  .practice-answer.visible { display: block; }
+
+  /* FRQ */
+  .frq-box {
+    background: linear-gradient(135deg, rgba(206,147,216,0.06) 0%, rgba(79,195,247,0.04) 100%);
+    border: 1px solid rgba(206,147,216,0.25);
+    border-radius: 4px;
+    padding: 22px 24px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #e1bee7;
+  }
+  .frq-box .frq-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  /* VIDEO */
+  .video-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+  }
+  .video-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .video-label .play-icon {
+    width: 26px; height: 26px;
+    background: var(--red);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .video-label .vtitle { color: var(--text); font-weight: 600; }
+  .video-iframe-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+  .video-iframe-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--blue);
+    z-index: 999;
+    transition: width 0.1s;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .unit-section { animation: fadeInUp 0.4s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .hero { padding: 48px 24px 40px; }
+    .hero h2 { font-size: 34px; }
+    .content { padding: 0 24px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="course-badge">College Board · Calculus-Based</div>
+    <h1>AP Physics C:<br>Mechanics</h1>
+  </div>
+  <div class="unit-nav" id="unit-nav"></div>
+  <div class="sidebar-footer">7 UNITS · 29 LESSONS · EXAM PREP</div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+  <div class="hero">
+    <div class="hero-badge">Target Score: 5</div>
+    <h2>AP Physics C:<br><span>Mechanics</span></h2>
+    <p>A complete, calculus-based course covering all seven College Board units. Every lesson includes deep conceptual explanations, key equations, common pitfalls, graded practice problems, AP-style free response questions, and curated video instruction.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">7</span><span class="stat-label">Units</span></div>
+      <div class="stat"><span class="stat-num">29</span><span class="stat-label">Lessons</span></div>
+      <div class="stat"><span class="stat-num">87</span><span class="stat-label">Practice Problems</span></div>
+      <div class="stat"><span class="stat-num">29</span><span class="stat-label">FRQs</span></div>
+    </div>
+  </div>
+  <div class="content" id="course-content"></div>
+</main>
+
+<script>
+const COURSE = {
+  units: [
+    {
+      id: "kinematics",
+      title: "Kinematics",
+      overview: "Kinematics is the mathematical description of motion without reference to its causes. In AP Physics C, kinematics is treated with the full power of calculus: position, velocity, and acceleration are related through differentiation and integration. Students must master not only the constant-acceleration kinematic equations but also the general case where acceleration is a function of time, requiring definite integrals and differential equations. Projectile motion, relative motion, and two-dimensional vector analysis are essential skills that appear throughout the entire course.",
+      lessons: [
+        {
+          title: "Position, Velocity, and Acceleration — The Calculus Foundation",
+          explanation: [
+            "In calculus-based physics, motion is described by three related functions of time. Position $x(t)$ tells us where an object is at any instant. Velocity $v(t)$ is the instantaneous rate of change of position — the derivative of position with respect to time: $v(t) = \\frac{dx}{dt}$. Acceleration $a(t)$ is the instantaneous rate of change of velocity: $a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$.",
+            "The inverse relationships are equally important. If you know velocity as a function of time, you can recover displacement through integration: $\\Delta x = \\int_{t_1}^{t_2} v(t)\\, dt$. This integral equals the area under the $v$-$t$ graph — a geometric interpretation that is frequently tested. Similarly, $\\Delta v = \\int_{t_1}^{t_2} a(t)\\, dt$.",
+            "For non-constant acceleration (e.g., $a(t) = 3t^2 - 2$), you cannot use the kinematic equations derived for constant acceleration. Instead, you must integrate. This is a fundamental distinction: the constant-acceleration equations $v = v_0 + at$, $x = x_0 + v_0 t + \\frac{1}{2}at^2$, and $v^2 = v_0^2 + 2a\\Delta x$ are special cases valid only when $a$ is constant. Recognize this boundary clearly.",
+            "The sign of acceleration tells you whether the object is speeding up or slowing down only when considered alongside the sign of velocity. If $v > 0$ and $a > 0$: speeding up in the positive direction. If $v > 0$ and $a < 0$: slowing down. If $v < 0$ and $a < 0$: speeding up in the negative direction. Speed increases when $v$ and $a$ have the same sign; speed decreases when they have opposite signs."
+          ],
+          equations: [
+            { formula: "v(t) = dx/dt", meaning: "Velocity is the first derivative of position with respect to time" },
+            { formula: "a(t) = dv/dt = d²x/dt²", meaning: "Acceleration is the second derivative of position (or first derivative of velocity)" },
+            { formula: "Δx = ∫ v(t) dt", meaning: "Displacement equals the integral of velocity — area under the v-t curve" },
+            { formula: "Δv = ∫ a(t) dt", meaning: "Change in velocity equals the integral of acceleration — area under the a-t curve" }
+          ],
+          mistakes: [
+            "Applying constant-acceleration equations when acceleration varies with time. Always check: is a constant? If not, integrate.",
+            "Confusing displacement (Δx, a vector) with distance traveled (always non-negative, path length). Distance requires integrating |v(t)|.",
+            "Forgetting the constant of integration when computing indefinite integrals — always apply initial conditions to find it.",
+            "Assuming a negative acceleration always means 'slowing down' — it depends entirely on the direction of velocity."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A particle has position $x(t) = 3t^3 - 12t^2 + 9t$ (meters, $t$ in seconds). Find the velocity and acceleration at $t = 2$ s.",
+              a: "Differentiate: $v(t) = 9t^2 - 24t + 9$. At $t = 2$: $v = 9(4) - 24(2) + 9 = 36 - 48 + 9 = -3$ m/s (moving in negative direction). Differentiate again: $a(t) = 18t - 24$. At $t = 2$: $a = 36 - 24 = 12$ m/s². Since $v < 0$ and $a > 0$, the particle is slowing down."
+            },
+            {
+              q: "LEVEL 2 — A particle starts at rest at the origin. Its acceleration is $a(t) = 6t - 4$ m/s². Find (a) the velocity as a function of time, (b) the position at $t = 3$ s, and (c) the time(s) at which the particle is momentarily at rest.",
+              a: "(a) $v(t) = \\int (6t-4)dt = 3t^2 - 4t + C$. Since $v(0) = 0$, $C = 0$. So $v(t) = 3t^2 - 4t$. (b) $x(t) = \\int v\\,dt = t^3 - 2t^2 + C_2$; $x(0) = 0 \\Rightarrow C_2 = 0$. At $t = 3$: $x = 27 - 18 = 9$ m. (c) $v = 0$: $t(3t - 4) = 0 \\Rightarrow t = 0$ and $t = 4/3$ s."
+            },
+            {
+              q: "LEVEL 3 — The velocity of a particle is $v(t) = Ae^{-bt}$ where $A = 10$ m/s and $b = 0.5$ s⁻¹. The particle starts at $x = 0$. (a) Find the total displacement as $t \\to \\infty$. (b) Find the total distance traveled. (c) Find the acceleration as a function of time and interpret the result physically.",
+              a: "(a) $\\Delta x = \\int_0^\\infty Ae^{-bt}dt = \\left[-\\frac{A}{b}e^{-bt}\\right]_0^\\infty = \\frac{A}{b} = \\frac{10}{0.5} = 20$ m. (b) Since $v(t) > 0$ for all $t > 0$, distance = displacement = 20 m. (c) $a(t) = \\frac{dv}{dt} = -Ab\\,e^{-bt} = -5e^{-0.5t}$ m/s². Acceleration is always negative (opposing motion) and exponentially decays — consistent with a drag-like retarding force proportional to velocity."
+            }
+          ],
+          frq: "A particle moves along the $x$-axis with acceleration $a(t) = (12t - 6)$ m/s². At $t = 0$, the particle is at $x = 5$ m and has velocity $v_0 = -3$ m/s. (a) Derive $v(t)$ and $x(t)$. (b) Find all times when the particle changes direction. (c) Find the total distance traveled from $t = 0$ to $t = 3$ s. (d) Sketch qualitative $v$-$t$ and $x$-$t$ graphs, clearly labeling all critical points.",
+          video: { title: "Calculus-Based Kinematics: Position, Velocity & Acceleration", url: "https://www.youtube.com/embed/MAS6mBRZZXA" }
+        },
+        {
+          title: "Kinematic Equations and Constant Acceleration",
+          explanation: [
+            "When acceleration is constant, the integral relationships simplify to the four kinematic equations every AP student must master. These are derived — not memorized blindly — from integration of $a(t) = a_0 = \\text{const}$.",
+            "Starting from $a = \\frac{dv}{dt}$: integrating gives $v(t) = v_0 + at$. Integrating again: $x(t) = x_0 + v_0 t + \\frac{1}{2}at^2$. The time-independent equation $v^2 = v_0^2 + 2a\\Delta x$ is obtained by eliminating $t$ between the first two. The fourth equation $\\Delta x = \\frac{1}{2}(v_0 + v)t$ follows from integrating the average velocity for constant acceleration.",
+            "Free fall is the paradigmatic constant-acceleration problem. Near Earth's surface, objects in free fall experience $a = -g = -9.8$ m/s² (taking upward as positive). The quadratic $y(t) = y_0 + v_0 t - \\frac{1}{2}gt^2$ describes the trajectory. At maximum height, $v = 0$. The time to reach maximum height is $t_{top} = v_0/g$. The ascent and descent times are symmetric (in the absence of air resistance).",
+            "Selecting the right kinematic equation is a skill. Identify your knowns and unknowns, then choose the equation that contains exactly what you need. If no time is given and none is needed, use $v^2 = v_0^2 + 2a\\Delta x$. On the AP exam, show your equation selection and substitution explicitly."
+          ],
+          equations: [
+            { formula: "v = v₀ + at", meaning: "Velocity after time t with constant acceleration (derived from integrating a)" },
+            { formula: "x = x₀ + v₀t + ½at²", meaning: "Position as a quadratic in time; derived from double integration of a" },
+            { formula: "v² = v₀² + 2aΔx", meaning: "Time-independent equation; useful when t is neither given nor needed" },
+            { formula: "Δx = ½(v₀ + v)t", meaning: "Displacement equals average velocity × time, valid ONLY for constant a" }
+          ],
+          mistakes: [
+            "Treating these equations as universally valid — they require constant acceleration. Always verify this condition.",
+            "Inconsistent sign conventions. Choose a positive direction at the start and stick with it throughout the entire problem.",
+            "Using $\\Delta x = ½(v_0+v)t$ when acceleration is not constant — this equation is entirely invalid in that case.",
+            "Forgetting that $\\Delta x$, not total distance, appears in these equations. If the object reverses direction, calculate each segment separately."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A car accelerates from rest at $3.0$ m/s² for $8.0$ s. Find (a) the final speed and (b) the distance covered.",
+              a: "(a) $v = 0 + (3.0)(8.0) = 24$ m/s. (b) $\\Delta x = 0 + \\frac{1}{2}(3.0)(8.0)^2 = 96$ m."
+            },
+            {
+              q: "LEVEL 2 — A ball is thrown upward from the ground at $20$ m/s. Taking $g = 10$ m/s² and up as positive: (a) find the maximum height, (b) the time to return to the ground, and (c) the speed upon return.",
+              a: "(a) At peak, $v = 0$: $v^2 = v_0^2 - 2g\\Delta y \\Rightarrow 0 = 400 - 20\\Delta y \\Rightarrow \\Delta y = 20$ m. (b) $\\Delta y = v_0 t - \\frac{1}{2}gt^2$: $0 = 20t - 5t^2 \\Rightarrow t = 4$ s. (c) By symmetry (or $v^2 = 400 + 2(-10)(-20)$... wait: using $v = v_0 - gt = 20 - 10(4) = -20$ m/s. Speed = 20 m/s."
+            },
+            {
+              q: "LEVEL 3 — A rocket sled decelerates from 300 m/s with $a = -18$ m/s². Simultaneously, at the moment the sled begins decelerating, a target car 1200 m ahead begins moving in the same direction from rest at $2.0$ m/s². Will the sled catch the car, and if so, when and where? If not, find the minimum separation.",
+              a: "Sled: $x_s = 300t - 9t^2$. Car: $x_c = 1200 + t^2$. Set $x_s = x_c$: $300t - 9t^2 = 1200 + t^2 \\Rightarrow 10t^2 - 300t + 1200 = 0 \\Rightarrow t^2 - 30t + 120 = 0$. Discriminant: $900 - 480 = 420 > 0$. So $t = \\frac{30 \\pm \\sqrt{420}}{2} = 15 \\pm \\sqrt{105} \\approx 15 \\pm 10.25$. First catch at $t \\approx 4.75$ s. Check sled hasn't stopped: sled stops when $v = 300 - 18t = 0 \\Rightarrow t = 16.7$ s. So sled catches car at $t \\approx 4.75$ s, at position $x_s \\approx 1200 + (10.25)^2 \\approx 1305$ m."
+            }
+          ],
+          frq: "A stone is dropped from a bridge $h$ meters above a river. At the same instant, a second stone is thrown vertically upward from a boat directly below the bridge with initial speed $v_0$. (a) Derive an expression for the time $t^*$ at which the stones meet. (b) Find the height above the water at which they meet. (c) Determine the condition on $v_0$ (in terms of $h$ and $g$) that the thrown stone reaches the bridge before the dropped stone arrives at the boat's level. (d) Sketch $y$-$t$ graphs for both stones on the same axes.",
+          video: { title: "Kinematic Equations Derivation (Calculus-Based)", url: "https://www.youtube.com/embed/1sMGbZ9Lmhk" }
+        },
+        {
+          title: "Projectile Motion",
+          explanation: [
+            "Projectile motion treats two-dimensional motion with constant gravitational acceleration by decomposing it into independent horizontal and vertical components. This independence is the key principle: horizontal and vertical motions do not affect each other. Horizontal: $a_x = 0$, so $x(t) = x_0 + v_{0x}t$. Vertical: $a_y = -g$, so $y(t) = y_0 + v_{0y}t - \\frac{1}{2}gt^2$.",
+            "The initial velocity decomposes as $v_{0x} = v_0\\cos\\theta$ and $v_{0y} = v_0\\sin\\theta$ where $\\theta$ is the launch angle above horizontal. The path is a parabola: eliminating $t$ from the component equations yields $y = x\\tan\\theta - \\frac{g}{2v_0^2\\cos^2\\theta}x^2$, the equation of a downward-opening parabola.",
+            "Range on level ground is maximized at $\\theta = 45°$, giving $R = v_0^2/g$. Note: for a fixed initial speed, launch angles that are complementary ($\\theta$ and $90° - \\theta$) give the same range but different trajectories and time of flight. The maximum height is $H = v_{0y}^2/(2g)$.",
+            "A critical concept: at any point in the trajectory, the velocity vector is tangent to the parabolic path. The speed is $v = \\sqrt{v_x^2 + v_y^2}$. The only acceleration is $g$ downward — even at the peak, where $v_y = 0$ but $a_y = -g \\ne 0$. The projectile is never in a 'zero-acceleration' state."
+          ],
+          equations: [
+            { formula: "x(t) = x₀ + v₀cosθ · t", meaning: "Horizontal position — uniform motion, no horizontal acceleration" },
+            { formula: "y(t) = y₀ + v₀sinθ · t − ½gt²", meaning: "Vertical position — constant downward acceleration g" },
+            { formula: "R = v₀²sin(2θ)/g", meaning: "Horizontal range on level ground; maximized at θ = 45°" },
+            { formula: "H = v₀²sin²θ/(2g)", meaning: "Maximum height reached; only the vertical component matters" }
+          ],
+          mistakes: [
+            "Assuming horizontal velocity changes — it does not (ignoring air resistance). Only $v_y$ changes due to gravity.",
+            "Forgetting that $v_y = 0$ at peak height but $a_y = -g$ always; never writing $a = 0$ at the apex.",
+            "Sign errors in $v_{0y}$: for a projectile launched below horizontal, $v_{0y}$ is negative.",
+            "Using the range formula $R = v_0^2\\sin(2\\theta)/g$ when the landing height differs from launch height — this formula is only valid on level ground."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A ball is launched at $25$ m/s at $37°$ above horizontal from a cliff $45$ m high. How far from the base of the cliff does it land? (Use $g = 10$ m/s², $\\sin 37° = 0.6$, $\\cos 37° = 0.8$)",
+              a: "$v_{0x} = 20$ m/s, $v_{0y} = 15$ m/s. Vertical: $-45 = 15t - 5t^2 \\Rightarrow 5t^2 - 15t - 45 = 0 \\Rightarrow t^2 - 3t - 9 = 0 \\Rightarrow t = \\frac{3 + \\sqrt{45}}{2} \\approx 4.85$ s. Range: $x = 20(4.85) \\approx 97$ m."
+            },
+            {
+              q: "LEVEL 2 — A projectile is launched from the origin. It passes through the point $(80, 60)$ m while rising. The horizontal velocity is $20$ m/s throughout. Find the launch angle and the coordinates of the apex.",
+              a: "Time to $x = 80$: $t = 80/20 = 4$ s. From $y$: $60 = v_{0y}(4) - \\frac{1}{2}(10)(16) = 4v_{0y} - 80 \\Rightarrow v_{0y} = 35$ m/s. $\\theta = \\arctan(35/20) \\approx 60.3°$. Apex when $v_y = 0$: $t_{top} = 35/10 = 3.5$ s. $x_{top} = 20(3.5) = 70$ m; $y_{top} = 35(3.5) - 5(3.5)^2 = 122.5 - 61.25 = 61.25$ m. Apex at $(70, 61.25)$ m."
+            },
+            {
+              q: "LEVEL 3 — A projectile is fired from position $(0, 0)$ and must strike a target at $(R, 0)$ on level ground. (a) Using calculus, derive the launch angle that minimizes the initial speed needed to reach the target. (b) What is that minimum speed? (c) Show that the optimal launch angle is exactly $45°$.",
+              a: "(a) Range formula: $R = v_0^2\\sin(2\\theta)/g$, so $v_0^2 = gR/\\sin(2\\theta)$. Minimize $v_0^2$ by maximizing $\\sin(2\\theta)$. Take $\\frac{d}{d\\theta}\\sin(2\\theta) = 2\\cos(2\\theta) = 0 \\Rightarrow 2\\theta = 90° \\Rightarrow \\theta = 45°$. (b) $v_{0,\\min}^2 = gR/\\sin(90°) = gR$, so $v_{0,\\min} = \\sqrt{gR}$. (c) QED from part (a): maximum of $\\sin(2\\theta)$ occurs at $\\theta = 45°$, confirming it is the minimum-speed angle."
+            }
+          ],
+          frq: "A cannon on a hilltop of height $H$ fires a projectile with speed $v_0$ at angle $\\theta$ above horizontal. (a) Derive expressions for the time of flight and the horizontal range $R$. (b) Find $\\theta$ that maximizes $R$ by differentiating your expression and setting $dR/d\\theta = 0$ (leave answer in implicit form or use the result $\\tan 2\\theta = -v_0^2/(gH)$ if needed). (c) A target at ground level is located at horizontal distance $D$. Determine the two launch angles that can hit the target, and identify which requires greater initial speed. (d) Explain physically why there are two solutions.",
+          video: { title: "Projectile Motion — AP Physics C", url: "https://www.youtube.com/embed/aY8z2qO44WA" }
+        },
+        {
+          title: "Relative Motion and Reference Frames",
+          explanation: [
+            "All motion is measured relative to a reference frame. The Galilean transformation connects observations made in different inertial frames (frames moving at constant velocity relative to each other). If frame $S'$ moves with velocity $\\vec{V}$ relative to frame $S$, then an object's velocity in $S$ is $\\vec{v} = \\vec{v}' + \\vec{V}$ where $\\vec{v}'$ is the velocity measured in $S'$.",
+            "This is the velocity addition formula for classical (non-relativistic) mechanics. For example, a boat crossing a river with velocity $\\vec{v}_{b}$ relative to water, while the river flows with $\\vec{V}_{w}$ relative to ground, has velocity $\\vec{v}_{bg} = \\vec{v}_b + \\vec{V}_w$ relative to ground. This is a vector addition — direction matters.",
+            "The time-to-cross a river is determined solely by the component of velocity perpendicular to the current. The drift downstream is determined by the current speed and the crossing time. To minimize crossing distance (not time), the boat must aim upstream at an angle such that the resultant velocity is perpendicular to the bank.",
+            "In AP Physics C, relative motion extends to acceleration: $\\vec{a}_{obs} = \\vec{a}' + \\vec{A}_{frame}$. In an inertial (non-accelerating) frame, Newton's laws hold without modification. In an accelerating (non-inertial) frame, fictitious forces appear — an important conceptual distinction tested in FRQ problems involving elevators, rotating frames, etc."
+          ],
+          equations: [
+            { formula: "v⃗_AC = v⃗_AB + v⃗_BC", meaning: "Velocity of A relative to C equals velocity of A relative to B plus velocity of B relative to C" },
+            { formula: "v⃗_obs = v⃗_object + v⃗_frame", meaning: "Galilean velocity addition for inertial reference frames" },
+            { formula: "t_cross = d / v_perp", meaning: "Crossing time depends only on the perpendicular component of velocity" }
+          ],
+          mistakes: [
+            "Adding speeds algebraically instead of adding velocity vectors — relative motion is a vector operation.",
+            "Confusing 'velocity relative to X' with 'velocity of X' — always carefully name both the object and the reference.",
+            "Forgetting that acceleration is the same in all inertial frames — only non-inertial (accelerating) frames introduce fictitious accelerations."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A river flows east at $3$ m/s. A boat can move at $5$ m/s relative to water. The river is $120$ m wide. (a) If the boat aims directly north, find its actual velocity (magnitude and direction) and the time to cross. (b) Find the downstream drift.",
+              a: "(a) $v_{ground} = \\sqrt{5^2 + 3^2} = \\sqrt{34} \\approx 5.83$ m/s at $\\arctan(3/5) \\approx 31°$ east of north. Crossing time: $t = 120/5 = 24$ s (perpendicular component = 5 m/s). (b) Drift = $3 \\times 24 = 72$ m downstream."
+            },
+            {
+              q: "LEVEL 2 — A pilot wants to fly due north at $200$ km/h groundspeed. Wind blows from west to east at $60$ km/h. In what direction must the pilot point the plane, and what must be the plane's airspeed?",
+              a: "For the resultant to point north: the westward component of airspeed must cancel the eastward wind. If the plane points at angle $\\theta$ west of north: $v_{air}\\sin\\theta = 60$. Resultant northward speed = $v_{air}\\cos\\theta = 200$. So $\\tan\\theta = 60/200 = 0.30 \\Rightarrow \\theta \\approx 16.7°$ west of north. $v_{air} = \\sqrt{200^2 + 60^2} = \\sqrt{43600} \\approx 209$ km/h."
+            },
+            {
+              q: "LEVEL 3 — Two cars approach an intersection. Car A moves east at $20$ m/s; Car B moves north at $15$ m/s. At $t = 0$, Car A is $200$ m west and Car B is $150$ m south of the intersection. (a) Find the velocity of Car B as seen by Car A. (b) Find the minimum distance between the cars and the time it occurs.",
+              a: "(a) $\\vec{v}_{B,A} = \\vec{v}_B - \\vec{v}_A = (0,15) - (20,0) = (-20, 15)$ m/s. (b) Position of B relative to A: $\\vec{r}_{rel}(t) = (200-20t, -150+15t) - ... $ wait: $\\vec{r}_{rel}(t) = (-200+20t) \\hat{x} + (150-15t) \\hat{y}$... Let me redo: A at $(-200+20t, 0)$; B at $(0, -150+15t)$. Relative position of B from A: $x_{rel} = 200-20t$, $y_{rel} = -150+15t$. Distance$^2 = (200-20t)^2 + (-150+15t)^2$. Minimize: $\\frac{d}{dt}[D^2] = 2(200-20t)(-20) + 2(-150+15t)(15) = 0$. $-40(200-20t) + 30(-150+15t) = 0$. $-8000 + 800t - 4500 + 450t = 0$. $1250t = 12500 \\Rightarrow t = 10$ s. $D_{min} = \\sqrt{(200-200)^2 + (-150+150)^2} = 0$. They collide! At $t = 10$ s, A is at $(0,0)$ and B is at $(0,0)$."
+            }
+          ],
+          frq: "A river of width $d$ flows with speed $u$ (uniform across the width). A boat with maximum speed $v$ relative to water ($v > u$) must cross from point A on the south bank to point B directly across on the north bank. (a) Derive the angle $\\alpha$ (relative to the bank's normal) at which the boat must aim to reach B. (b) Derive the crossing time. (c) If $v < u$, prove that the boat cannot reach B directly and find the minimum downstream drift. (d) A second boat departs simultaneously from A, moving downstream with speed $w$ along the south bank. Derive the speed $w$ such that both boats reach the south bank exit point at the same time.",
+          video: { title: "Relative Motion in 2D — Vectors and Reference Frames", url: "https://www.youtube.com/embed/BLuI118nhzc" }
+        }
+      ]
+    },
+    {
+      id: "dynamics",
+      title: "Force and Translational Dynamics",
+      overview: "Dynamics connects kinematics to the causes of motion. Newton's three laws form the axiomatic foundation of classical mechanics. In AP Physics C, students must apply Newton's second law in its full vector form — separately for $x$, $y$ (and sometimes $z$) components — to systems ranging from single particles to multi-body problems. Friction, tension, normal forces, drag, and centripetal acceleration are treated with mathematical precision. Free-body diagrams are the primary analytical tool and must be drawn meticulously on the exam.",
+      lessons: [
+        {
+          title: "Newton's Laws and Free-Body Diagrams",
+          explanation: [
+            "Newton's First Law (Law of Inertia): An object remains at rest or moves with constant velocity unless acted upon by a net external force. This establishes the concept of an inertial reference frame and defines what we mean by 'no net force.' Mathematically: $\\vec{F}_{net} = 0 \\Rightarrow \\vec{a} = 0$.",
+            "Newton's Second Law: $\\vec{F}_{net} = m\\vec{a}$. This is the central equation of dynamics. The net force is the vector sum of all external forces. Mass $m$ is the inertial mass — the resistance to acceleration. This law applies component by component: $\\Sigma F_x = ma_x$ and $\\Sigma F_y = ma_y$.",
+            "Newton's Third Law: Forces always occur in equal-and-opposite action-reaction pairs. If A exerts force $\\vec{F}_{AB}$ on B, then B exerts $\\vec{F}_{BA} = -\\vec{F}_{AB}$ on A. Critically: these paired forces act on different objects and thus never cancel each other in a single free-body diagram.",
+            "Free-body diagrams (FBDs) are the cornerstone of problem-solving. Draw the object as a point. Draw every force acting on that object — only forces on that object. Label each force with its type and origin. Set up a coordinate system. Then apply $\\Sigma \\vec{F} = m\\vec{a}$ component-wise. On the AP exam, FBDs are explicitly graded and an incorrect FBD propagates errors throughout the solution."
+          ],
+          equations: [
+            { formula: "ΣF⃗ = ma⃗", meaning: "Net external force equals mass times acceleration (vector equation)" },
+            { formula: "ΣFx = max, ΣFy = may", meaning: "Newton's second law applied component-by-component" },
+            { formula: "F⃗_AB = −F⃗_BA", meaning: "Newton's third law: action-reaction pairs are equal, opposite, and on different bodies" },
+            { formula: "w = mg", meaning: "Weight: gravitational force on mass m near Earth's surface (g ≈ 9.8 m/s²)" }
+          ],
+          mistakes: [
+            "Including forces that act on other objects in your FBD — each FBD must contain ONLY forces acting on the chosen system.",
+            "Canceling action-reaction pairs in one FBD — they act on different bodies and cannot cancel in a single diagram.",
+            "Treating weight and normal force as a Newton's third law pair — they are NOT. Normal force and weight are both on the same object. The third-law pair of weight is the gravitational pull the object exerts on Earth.",
+            "Forgetting to resolve forces into components before applying Newton's second law in angled situations."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A $10$ kg block rests on a frictionless surface. Two horizontal forces act on it: $F_1 = 30$ N east and $F_2 = 18$ N at $60°$ north of west. Find the magnitude and direction of the block's acceleration.",
+              a: "$F_{2x} = -18\\cos60° = -9$ N; $F_{2y} = 18\\sin60° = 15.6$ N. Net: $F_x = 30 - 9 = 21$ N; $F_y = 15.6$ N. $a_x = 2.1$ m/s², $a_y = 1.56$ m/s². $|a| = \\sqrt{2.1^2+1.56^2} = \\sqrt{4.41+2.43} = \\sqrt{6.84} \\approx 2.61$ m/s² at $\\arctan(1.56/2.1) \\approx 36.6°$ north of east."
+            },
+            {
+              q: "LEVEL 2 — Two masses $m_1 = 5$ kg and $m_2 = 3$ kg are connected by a massless string over a frictionless pulley (Atwood machine). Find the acceleration of the system and the tension in the string.",
+              a: "Taking $m_1$ as going down: $m_1 g - T = m_1 a$ and $T - m_2 g = m_2 a$. Adding: $(m_1 - m_2)g = (m_1 + m_2)a$. $a = \\frac{(5-3)(9.8)}{8} = \\frac{19.6}{8} = 2.45$ m/s². $T = m_2(g+a) = 3(9.8+2.45) = 3(12.25) = 36.75$ N."
+            },
+            {
+              q: "LEVEL 3 — Three blocks of masses $m_1$, $m_2$, $m_3$ are stacked vertically (1 on top of 2 on top of 3) on a frictionless surface. An external horizontal force $F$ is applied to block 3 (the bottom). Friction exists between all block surfaces with coefficient $\\mu_s$. (a) Find the maximum force $F$ for which the system moves as one unit. (b) Find all contact forces for this maximum $F$.",
+              a: "(a) System: $a = F/(m_1+m_2+m_3)$. The constraint is that $m_1$ (top) must not slip on $m_2$: max friction on $m_1 = \\mu_s m_1 g$. Required force on $m_1 = m_1 a = m_1 F/(M)$ where $M = m_1+m_2+m_3$. So $m_1 F/M \\le \\mu_s m_1 g \\Rightarrow F_{max} = \\mu_s g M$. (b) At $F_{max}$: $a = \\mu_s g$. Contact force between 1 and 2: friction $= \\mu_s m_1 g$ forward. Normal between 1 and 2: $N_{12} = m_1 g$. Contact force between 2 and 3: friction on 2 from 3 (forward) must accelerate $m_1 + m_2$: $f_{23} = (m_1+m_2)\\mu_s g$. Normal $N_{23} = (m_1+m_2)g$."
+            }
+          ],
+          frq: "A block of mass $M$ sits on a wedge of mass $m$ and angle $\\theta$. The surface between the wedge and floor is frictionless. All surfaces between block and wedge are also frictionless. The system is released from rest. (a) Draw separate, careful FBDs for the block and the wedge. (b) Derive the acceleration of the wedge along the floor and the acceleration of the block relative to the wedge. (c) Find the normal force between the block and wedge. (d) Discuss the limiting behavior as $\\theta \\to 0°$ and $\\theta \\to 90°$ and explain each physically.",
+          video: { title: "Newton's Laws — AP Physics C (MIT OCW Style)", url: "https://www.youtube.com/embed/kKKM8Y-u7ds" }
+        },
+        {
+          title: "Friction and Applications of Newton's Second Law",
+          explanation: [
+            "Friction is a contact force that opposes relative motion (or tendency of relative motion) between surfaces. Static friction $f_s$ prevents objects from sliding: $f_s \\le \\mu_s N$ where $N$ is the normal force and $\\mu_s$ is the coefficient of static friction. Static friction is a variable force — it takes whatever value is needed to prevent sliding, up to its maximum $\\mu_s N$.",
+            "Kinetic friction $f_k = \\mu_k N$ acts when surfaces slide relative to each other. Note: $f_k$ is constant in magnitude (for given $N$ and surfaces). Always $\\mu_k < \\mu_s$. Kinetic friction always opposes the direction of sliding, not the direction of motion.",
+            "On inclined planes, resolving forces parallel and perpendicular to the incline is cleanest. For a block on an incline of angle $\\theta$: $N = mg\\cos\\theta$; component of gravity parallel to slope: $mg\\sin\\theta$. The acceleration along the slope (taking down as positive, with kinetic friction): $ma = mg\\sin\\theta - \\mu_k mg\\cos\\theta = mg(\\sin\\theta - \\mu_k\\cos\\theta)$.",
+            "Multi-body problems require a careful choice of system. For connected masses, you can treat the whole system to find acceleration (internal forces cancel), then isolate one body to find internal forces (tensions, contact forces). This two-step strategy is efficient and reliable for AP problems."
+          ],
+          equations: [
+            { formula: "f_s ≤ μ_s N", meaning: "Static friction inequality — takes any value up to its maximum; prevents sliding" },
+            { formula: "f_k = μ_k N", meaning: "Kinetic friction force — constant when sliding occurs; always μ_k < μ_s" },
+            { formula: "a = g(sinθ − μcosθ)", meaning: "Acceleration of block sliding down a frictionless... (with friction) inclined plane at angle θ" }
+          ],
+          mistakes: [
+            "Writing $f_s = \\mu_s N$ always — static friction equals $\\mu_s N$ only at the verge of sliding. Generally $f_s < \\mu_s N$.",
+            "Assuming the normal force equals $mg$ when other forces (applied forces with vertical components, inclines) are present.",
+            "Applying kinetic friction in the wrong direction — it always opposes the velocity of the surface relative to the other, not the applied force.",
+            "Neglecting to recalculate normal force after changing the angle or adding vertical force components."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A $20$ kg box on a horizontal surface is pushed with a $100$ N force at $30°$ below horizontal. $\\mu_k = 0.3$. Find the acceleration.",
+              a: "$N = mg + F\\sin30° = 196 + 50 = 246$ N. $f_k = 0.3(246) = 73.8$ N. $F_x = 100\\cos30° = 86.6$ N. $a = (86.6 - 73.8)/20 = 12.8/20 = 0.64$ m/s²."
+            },
+            {
+              q: "LEVEL 2 — Two blocks are connected by a string over a pulley. Block A ($m_A = 8$ kg) is on an incline of $\\theta = 30°$ with $\\mu_k = 0.25$. Block B ($m_B = 5$ kg) hangs vertically. Find the acceleration and tension. ($g = 9.8$ m/s²)",
+              a: "Assume B falls, A slides up incline. For A: $T - m_A g\\sin30° - \\mu_k m_A g\\cos30° = m_A a$. $T - 8(9.8)(0.5) - 0.25(8)(9.8)(0.866) = 8a$. $T - 39.2 - 17.0 = 8a$. For B: $m_B g - T = m_B a$: $49 - T = 5a$. Adding: $49 - 56.2 = 13a \\Rightarrow a = -7.2/13 = -0.55$ m/s². Negative: A slides down, B moves up. Redo signs (A down incline): $m_A g\\sin30° - \\mu_k m_A g\\cos30° - T = m_A a$. $39.2 - 17.0 - T = 8a$. $22.2 - T = 8a$. B: $T - 49 = 5a$. Adding: $-26.8 = 13a \\Rightarrow a = -2.06$ m/s². Still negative — A can't pull B. System stays at rest with static friction."
+            },
+            {
+              q: "LEVEL 3 — A block of mass $m$ sits on top of another block of mass $M$, which sits on a frictionless floor. The coefficient of static friction between blocks is $\\mu_s$. A horizontal force $F$ is applied to $M$. Derive (a) the maximum $F$ for which $m$ doesn't slip on $M$ and (b) the accelerations and friction force when $F$ exceeds this maximum.",
+              a: "(a) For no slipping, both blocks have same acceleration $a = F/(m+M)$. The friction on $m$ from $M$ provides $m$'s acceleration: $f = ma = mF/(m+M)$. Max friction $= \\mu_s mg$. So $mF/(m+M) \\le \\mu_s mg \\Rightarrow F_{max} = \\mu_s g(m+M)$. (b) When $F > F_{max}$: on $M$: $F - \\mu_k mg = MA_M \\Rightarrow A_M = (F - \\mu_k mg)/M$. On $m$: $\\mu_k mg = mA_m \\Rightarrow A_m = \\mu_k g$. Friction $= \\mu_k mg$ (kinetic, since sliding)."
+            }
+          ],
+          frq: "A box of mass $m$ is being pulled up a ramp of angle $\\theta$ by a rope that makes angle $\\phi$ above the ramp surface. The coefficients of static and kinetic friction between box and ramp are $\\mu_s$ and $\\mu_k$ respectively. (a) Draw a complete FBD. (b) Find the tension $T$ required for constant velocity. (c) Show that there is an optimal angle $\\phi^*$ that minimizes the required tension and derive $\\phi^*$ using calculus (differentiate $T$ with respect to $\\phi$ and set to zero). (d) Show that $\\phi^* = \\arctan(\\mu_k)$. (e) Evaluate whether this optimal angle is practical if $\\mu_k = 0.4$.",
+          video: { title: "Friction Forces — AP Physics C Mechanics", url: "https://www.youtube.com/embed/HRnyS3SWAQ0" }
+        },
+        {
+          title: "Circular Motion and Centripetal Acceleration",
+          explanation: [
+            "Uniform circular motion (UCM) describes motion at constant speed along a circular path. Although the speed is constant, the velocity vector continuously changes direction, meaning there is a nonzero acceleration. This centripetal (center-seeking) acceleration is directed radially inward: $a_c = v^2/r = \\omega^2 r$, where $\\omega$ is the angular velocity in rad/s.",
+            "The centripetal acceleration is not a new kind of force — it is the name given to the acceleration of an object in circular motion. The centripetal force is the net radial force required to maintain circular motion: $\\Sigma F_{radial} = mv^2/r$ directed inward. This net force can be provided by tension, gravity, normal force, friction, or any combination.",
+            "For non-uniform circular motion, there is also a tangential component of acceleration: $a_t = \\frac{dv}{dt}$, tangent to the circle. The total acceleration is $\\vec{a} = a_r\\hat{r} + a_t\\hat{\\theta}$. The magnitude is $|a| = \\sqrt{a_r^2 + a_t^2}$.",
+            "Key applications: (1) Banked curves — the normal force provides the centripetal force component, reducing the reliance on friction. For no-friction banking: $\\tan\\theta = v^2/(rg)$. (2) Vertical circles — tension varies with position. At the bottom: $T - mg = mv^2/r$ (T is largest); at the top: $T + mg = mv^2/r$ (T is smallest, zero for minimum speed). (3) Conical pendulum: $T\\cos\\theta = mg$, $T\\sin\\theta = mv^2/r$."
+          ],
+          equations: [
+            { formula: "a_c = v²/r = ω²r", meaning: "Centripetal (radial) acceleration, directed toward center" },
+            { formula: "ΣF_radial = mv²/r", meaning: "Net radial force equals the centripetal requirement — this IS Newton's 2nd law in the radial direction" },
+            { formula: "v = ωr", meaning: "Relationship between tangential speed and angular velocity" },
+            { formula: "tanθ = v²/(rg)", meaning: "Banking angle for frictionless circular roadway" }
+          ],
+          mistakes: [
+            "Drawing 'centripetal force' as a separate force on FBDs — it is not an independent force; it is the net radial force from real forces already present.",
+            "Forgetting that at the top of a vertical circle, both tension and weight point toward the center — they add, not subtract.",
+            "Setting normal force equal to $mg$ on a banked curve — the normal force has both radial and vertical components.",
+            "Confusing angular velocity $\\omega$ (rad/s) with frequency $f$ (Hz) — they relate as $\\omega = 2\\pi f$."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A 0.5 kg ball on a 0.8 m string moves in a horizontal circle (conical pendulum) with the string making 30° with the vertical. Find the tension and the ball's speed.",
+              a: "$T\\cos30° = mg \\Rightarrow T = 0.5(9.8)/\\cos30° = 4.9/0.866 = 5.66$ N. $r = 0.8\\sin30° = 0.4$ m. $T\\sin30° = mv^2/r \\Rightarrow 5.66(0.5) = 0.5v^2/0.4 \\Rightarrow 2.83 = 1.25v^2 \\Rightarrow v = 1.50$ m/s."
+            },
+            {
+              q: "LEVEL 2 — A car of mass $1200$ kg travels at $20$ m/s over a circular hill of radius $80$ m. (a) What is the normal force at the top? (b) What is the minimum speed at which the car becomes airborne?",
+              a: "(a) At top, $mg - N = mv^2/r \\Rightarrow N = m(g - v^2/r) = 1200(9.8 - 400/80) = 1200(9.8 - 5) = 1200(4.8) = 5760$ N. (b) Airborne when $N = 0$: $mg = mv_{min}^2/r \\Rightarrow v_{min} = \\sqrt{gr} = \\sqrt{9.8 \\times 80} = \\sqrt{784} = 28$ m/s."
+            },
+            {
+              q: "LEVEL 3 — A particle moves in a circle of radius $R$. Its speed increases uniformly from $v_0$ at $t = 0$ to $v_f$ at time $T$. (a) Express the total acceleration as a function of time. (b) Find the angle between the total acceleration vector and the radius at time $t$. (c) At what time is the total acceleration perpendicular to the velocity? Interpret physically.",
+              a: "(a) $a_t = (v_f - v_0)/T = $ const. $v(t) = v_0 + a_t t$. $a_c(t) = v(t)^2/R = (v_0 + a_t t)^2/R$. $|a_{total}| = \\sqrt{a_t^2 + [(v_0+a_t t)^2/R]^2}$. (b) $\\tan\\alpha = a_t / a_c = \\frac{a_t R}{(v_0+a_t t)^2}$, where $\\alpha$ is measured from radial direction. (c) Acceleration is perpendicular to velocity... that would require $a_t = 0$, meaning $v_f = v_0$. In UCM ($a_t = 0$), acceleration is always centripetal (perpendicular to $v$). With $a_t \\ne 0$, the acceleration is never purely perpendicular to the velocity — there's always a tangential component aligned with $v$."
+            }
+          ],
+          frq: "A small block of mass $m$ is placed inside a hollow vertical cylinder of radius $R$ rotating at angular velocity $\\omega$. The coefficient of static friction between block and cylinder wall is $\\mu_s$. (a) Draw a FBD of the block (viewed from the side). (b) Identify which force provides the centripetal acceleration. (c) Derive the minimum $\\omega$ for the block not to slide down. (d) If the cylinder decelerates, what determines whether the block slides down or up? (e) Derive the acceleration of the cylinder at which the block first begins to slide upward.",
+          video: { title: "Centripetal Force and Circular Motion — Physics C", url: "https://www.youtube.com/embed/bpFK2VCRHUs" }
+        },
+        {
+          title: "Drag Forces and Terminal Velocity",
+          explanation: [
+            "Drag is a velocity-dependent resistive force. Two models are common: (1) Linear (Stokes) drag: $f_d = bv$, valid for slow motion through viscous fluids. (2) Quadratic drag: $f_d = \\frac{1}{2}C_D\\rho A v^2$, valid for faster motion through air. AP Physics C typically uses the simpler form $F_d = bv$ for differential equation analysis.",
+            "For a falling object with linear drag: $ma = mg - bv$. This is a first-order linear ODE. Separating variables: $\\frac{dv}{mg - bv} = \\frac{dt}{m}$. Integrating: $-\\frac{1}{b}\\ln(mg - bv) = t/m + C$. Applying $v(0) = 0$: $v(t) = \\frac{mg}{b}(1 - e^{-bt/m})$.",
+            "As $t \\to \\infty$, $v \\to v_T = mg/b$, the terminal velocity. At terminal velocity, drag exactly balances gravity and acceleration is zero. The time constant $\\tau = m/b$ characterizes how quickly terminal velocity is approached — after $t = \\tau$, the velocity reaches $(1 - 1/e) \\approx 63\\%$ of $v_T$.",
+            "Position is found by integrating $v(t)$: $x(t) = v_T\\left[t + \\frac{m}{b}\\left(e^{-bt/m} - 1\\right)\\right] = v_T\\left[t - \\tau(1 - e^{-t/\\tau})\\right]$. The differential equation setup and solution process (separation of variables) is frequently tested on AP Physics C FRQs as an explicit calculus task."
+          ],
+          equations: [
+            { formula: "F_net = mg − bv (linear drag)", meaning: "Net force on falling object with velocity-proportional drag" },
+            { formula: "v(t) = v_T(1 − e^{−bt/m})", meaning: "Velocity as a function of time — exponential approach to terminal velocity" },
+            { formula: "v_T = mg/b", meaning: "Terminal velocity: drag force equals gravitational force" },
+            { formula: "τ = m/b", meaning: "Time constant: characterizes speed of approach to terminal velocity" }
+          ],
+          mistakes: [
+            "Applying constant-acceleration kinematics to drag problems — the equations $v = v_0 + at$ etc. are invalid when $a$ depends on $v$.",
+            "Forgetting to apply initial conditions when solving the ODE — the constant of integration is essential.",
+            "Treating terminal velocity as something reached instantaneously — it is asymptotically approached.",
+            "Sign errors in the ODE: drag always opposes velocity; if upward is positive and object falls, drag is positive and weight is negative."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — An object falls with linear drag coefficient $b = 0.5$ kg/s. Its mass is $2$ kg. Find the terminal velocity and the time to reach 90% of terminal velocity.",
+              a: "$v_T = mg/b = 2(9.8)/0.5 = 39.2$ m/s. $0.9 = 1 - e^{-t/\\tau}$; $\\tau = m/b = 4$ s; $e^{-t/4} = 0.1 \\Rightarrow t = 4\\ln(10) \\approx 9.21$ s."
+            },
+            {
+              q: "LEVEL 2 — An object is thrown upward with initial speed $v_0$ in a medium with linear drag $F_d = bv$. Set up and solve the ODE for upward motion. Find the maximum height.",
+              a: "Upward positive: $m\\frac{dv}{dt} = -mg - bv$. Separate: $\\frac{dv}{g + bv/m} = -dt$. Let $u = g + bv/m$, $du = (b/m)dv$. Integral: $\\frac{m}{b}\\ln(g+bv/m) = -t + C$. At $t=0$, $v = v_0$: $C = \\frac{m}{b}\\ln(g+bv_0/m)$. $v(t) = \\frac{m}{b}\\left[(g + \\frac{bv_0}{m})e^{-bt/m} - g\\right]$. At max height, $v = 0$: $t_{top} = \\frac{m}{b}\\ln\\left(1 + \\frac{bv_0}{mg}\\right)$. $H = \\int_0^{t_{top}} v\\,dt$ (requires further integration)."
+            },
+            {
+              q: "LEVEL 3 — A skydiver (mass $m = 80$ kg) has drag coefficient $b = 16$ kg/s before opening parachute. After opening (at terminal velocity), drag increases to $b' = 160$ kg/s. (a) Find initial terminal velocity. (b) Write and solve the ODE for velocity after parachute opens. (c) Find the new terminal velocity and the time to reach 95% of it.",
+              a: "(a) $v_{T1} = mg/b = 80(9.8)/16 = 49$ m/s. (b) Taking downward as positive with initial velocity $v_{T1}$: $m\\dot{v} = mg - b'v$. Solution: $v(t) = v_{T2} + (v_{T1} - v_{T2})e^{-b't/m}$ where $v_{T2} = mg/b'$. (c) $v_{T2} = 80(9.8)/160 = 4.9$ m/s. $\\tau' = m/b' = 0.5$ s. For 95%: $1 - e^{-t/0.5} = 0.95 \\Rightarrow t = 0.5\\ln(20) \\approx 1.50$ s."
+            }
+          ],
+          frq: "A particle of mass $m$ is shot horizontally with initial speed $v_0$ in a medium with linear drag $\\vec{F}_d = -b\\vec{v}$. Gravity acts downward. (a) Write the coupled differential equations for $v_x(t)$ and $v_y(t)$. (b) Solve both ODEs with appropriate initial conditions. (c) Derive $x(t)$ and $y(t)$. (d) Show that as $t \\to \\infty$, the particle approaches terminal velocity $v_T = mg/b$ directed straight down. (e) Eliminate $t$ to find the implicit equation of the trajectory $y(x)$ and describe how it differs from parabolic projectile motion.",
+          video: { title: "Drag Force and Terminal Velocity — Differential Equations", url: "https://www.youtube.com/embed/7QpiA4Ycaro" }
+        }
+      ]
+    },
+    {
+      id: "energy",
+      title: "Work, Energy, and Power",
+      overview: "The work-energy framework provides an alternative, often more powerful, approach to solving mechanics problems. Instead of tracking forces at every instant (Newton's second law), we use scalar energy quantities that depend only on initial and final states. The work-energy theorem, conservation of mechanical energy, and the distinction between conservative and non-conservative forces are the three pillars of this unit. Calculus enters through the definition of work done by variable forces via line integrals, and through the derivation of potential energy functions.",
+      lessons: [
+        {
+          title: "Work Done by Constant and Variable Forces",
+          explanation: [
+            "Work is defined as the scalar product of force and displacement: for a constant force, $W = \\vec{F} \\cdot \\Delta\\vec{r} = F|\\Delta r|\\cos\\theta$, where $\\theta$ is the angle between $\\vec{F}$ and the displacement. Work is a scalar — it can be positive, negative, or zero. Positive work increases an object's kinetic energy; negative work decreases it.",
+            "For a variable force, the infinitesimal work done over displacement $dx$ is $dW = F(x)\\, dx$. The total work from $x_1$ to $x_2$ is the definite integral: $W = \\int_{x_1}^{x_2} F(x)\\, dx$. Geometrically, this is the area under the $F$-$x$ graph. This is where calculus is essential — spring forces, gravitational forces at large distances, and other position-dependent forces require integration.",
+            "Several important special cases: (1) Spring force: $F = -kx$ (Hooke's Law). Work done by the spring: $W_{spring} = -\\frac{1}{2}kx^2$ (can be negative or positive). Work done against the spring to compress/stretch it: $W_{ext} = \\frac{1}{2}kx^2$. (2) Gravity near Earth: $W_{grav} = -mg\\Delta h = -mg(y_f - y_i)$. (3) Gravity in space: $W = -GMm/r|_{r_i}^{r_f}$ (from integrating $F = GMm/r^2$).",
+            "The net work done on an object equals its change in kinetic energy — this is the Work-Energy Theorem: $W_{net} = \\Delta KE = \\frac{1}{2}mv_f^2 - \\frac{1}{2}mv_i^2$."
+          ],
+          equations: [
+            { formula: "W = F⃗·Δr⃗ = FΔr cosθ", meaning: "Work done by a constant force; θ is the angle between force and displacement" },
+            { formula: "W = ∫F(x) dx (from x₁ to x₂)", meaning: "Work done by a variable force — the integral of force over displacement" },
+            { formula: "W_spring = ½kx²", meaning: "Work done to compress/stretch a spring by displacement x from equilibrium" },
+            { formula: "W_net = ΔKE = ½mv² − ½mv₀²", meaning: "Work-Energy Theorem: net work equals change in kinetic energy" }
+          ],
+          mistakes: [
+            "Including forces perpendicular to displacement in work calculations — they contribute zero work.",
+            "Confusing work done BY the spring with work done AGAINST the spring — they differ by a sign.",
+            "Computing work of gravity as $mg\\Delta r$ instead of $mg\\Delta h$ (only the vertical displacement matters).",
+            "Forgetting that the Work-Energy Theorem uses NET work (from ALL forces), not just one force."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A force $F(x) = (3x^2 - 2x + 5)$ N acts on a particle. Find the work done as the particle moves from $x = 1$ m to $x = 4$ m.",
+              a: "$W = \\int_1^4 (3x^2 - 2x + 5)\\,dx = [x^3 - x^2 + 5x]_1^4 = (64 - 16 + 20) - (1 - 1 + 5) = 68 - 5 = 63$ J."
+            },
+            {
+              q: "LEVEL 2 — A spring with $k = 200$ N/m is initially compressed $0.15$ m. A $2$ kg block is released from rest. Find the block's speed when (a) the spring is at its natural length and (b) the spring is stretched $0.05$ m.",
+              a: "(a) Work by spring = $\\frac{1}{2}(200)(0.15)^2 = 2.25$ J. $W = \\Delta KE$: $2.25 = \\frac{1}{2}(2)v^2 \\Rightarrow v = 1.5$ m/s. (b) Spring does work from $x = -0.15$ to $x = 0.05$: $W = \\frac{1}{2}(200)(0.15)^2 - \\frac{1}{2}(200)(0.05)^2 = 2.25 - 0.25 = 2.0$ J. $v = \\sqrt{2(2)/2} = \\sqrt{2} \\approx 1.41$ m/s."
+            },
+            {
+              q: "LEVEL 3 — A force field is given by $\\vec{F} = (2xy)\\hat{i} + (x^2 - 3y^2)\\hat{j}$ N. (a) Find the work done moving from $(0,0)$ to $(2,3)$ along the path $y = \\frac{3}{2}x$ (straight line). (b) Compute the work along the path: first from $(0,0)$ to $(2,0)$, then from $(2,0)$ to $(2,3)$. (c) Based on your results, determine whether this force is conservative.",
+              a: "(a) Parametrize: $x = t, y = 3t/2$, $t: 0\\to 2$. $dx = dt, dy = 3dt/2$. $W = \\int[(2t \\cdot \\frac{3t}{2})dt + (t^2 - 3\\frac{9t^2}{4})\\frac{3}{2}dt] = \\int_0^2[3t^2 + \\frac{3}{2}(t^2 - \\frac{27t^2}{4})]dt = \\int_0^2[3t^2 + \\frac{3t^2}{2} - \\frac{81t^2}{8}]dt = \\int_0^2 t^2[3 + 1.5 - 10.125]dt = \\int_0^2 (-5.625t^2)dt = -5.625 \\times 8/3 = -15$ J. (b) Path 1 ($y=0$, $x:0\\to2$): $W_1 = \\int_0^2 2x(0)dx = 0$. Path 2 ($x=2$, $y:0\\to3$): $W_2 = \\int_0^3(4 - 3y^2)dy = [4y - y^3]_0^3 = 12 - 27 = -15$ J. Total = $-15$ J. (c) Same work on both paths → force appears conservative (it is: $U = -x^2 y + y^3$)."
+            }
+          ],
+          frq: "A particle of mass $m$ moves along the $x$-axis under the influence of force $F(x) = F_0 \\sin(\\pi x / L)$ for $0 \\le x \\le L$, where $F_0$ and $L$ are positive constants. The particle starts from rest at $x = 0$. (a) Find the work done by $F$ as the particle moves from $x = 0$ to $x = L$. (b) Derive the speed of the particle at $x = L$. (c) Find the position $x_m$ of maximum speed and the maximum speed. (d) Sketch $F(x)$, $W(x)$, and $v(x)$ on separate graphs from $x = 0$ to $L$.",
+          video: { title: "Work Done by Variable Forces — Calculus Approach", url: "https://www.youtube.com/embed/PzAgUMpEtaQ" }
+        },
+        {
+          title: "Potential Energy and Conservation of Energy",
+          explanation: [
+            "A force is conservative if the work it does on a particle moving between two points is independent of the path taken — equivalently, if the work done around any closed path is zero. Conservative forces can be associated with a potential energy function $U$ such that $W_{conservative} = -\\Delta U = -(U_f - U_i)$.",
+            "The potential energy is related to the force by: $F_x = -\\frac{dU}{dx}$ (in one dimension) or $\\vec{F} = -\\nabla U$ (in 3D). This is fundamental — the force is the negative gradient of potential energy. Common examples: gravitational PE $U_g = mgy$ (from $F_g = -mg$); spring PE $U_s = \\frac{1}{2}kx^2$ (from $F_s = -kx$).",
+            "Conservation of mechanical energy applies when only conservative forces do work: $E_{mech} = KE + PE = \\frac{1}{2}mv^2 + U = $ constant. This is a powerful tool because it relates speed to position without needing to know forces at every instant along the path.",
+            "When non-conservative forces (friction, drag, external applied forces) do work, mechanical energy is not conserved. The generalized energy equation becomes: $W_{non-conservative} = \\Delta E_{mech} = \\Delta KE + \\Delta PE$. The work done by friction always appears as a negative term (energy lost to thermal energy)."
+          ],
+          equations: [
+            { formula: "F(x) = −dU/dx", meaning: "Conservative force equals negative derivative of potential energy — force points down the potential gradient" },
+            { formula: "W_cons = −ΔU", meaning: "Work done by a conservative force equals the decrease in potential energy" },
+            { formula: "E = ½mv² + U = constant", meaning: "Conservation of mechanical energy — valid only when non-conservative forces do no work" },
+            { formula: "W_nc = ΔKE + ΔPE = ΔE_mech", meaning: "Work by non-conservative forces equals total change in mechanical energy" }
+          ],
+          mistakes: [
+            "Applying conservation of energy when friction is present without accounting for the energy lost to friction ($W_{friction} = -f_k d$).",
+            "Confusing the sign in $F = -dU/dx$ — the force pushes toward lower potential energy (negative gradient).",
+            "Measuring gravitational PE from the wrong reference point — only changes in PE matter, not the absolute value. Choose any reference, be consistent.",
+            "Applying $U = mgy$ for large distances from Earth — at planetary scales, $U = -GMm/r$ must be used."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A 3 kg block slides down a frictionless track from a height of 5 m, then compresses a spring with $k = 600$ N/m. Find the maximum compression of the spring.",
+              a: "$mgh = \\frac{1}{2}kx^2$. $3(9.8)(5) = \\frac{1}{2}(600)x^2$. $147 = 300x^2 \\Rightarrow x = \\sqrt{0.49} = 0.7$ m."
+            },
+            {
+              q: "LEVEL 2 — A potential energy function is $U(x) = x^4 - 4x^2$ (in joules, $x$ in meters). (a) Find the equilibrium positions. (b) Classify each as stable, unstable, or neutral. (c) If a particle has total energy $E = -3$ J, find the turning points.",
+              a: "(a) $F = -dU/dx = -(4x^3 - 8x) = 0 \\Rightarrow 4x(x^2 - 2) = 0 \\Rightarrow x = 0, \\pm\\sqrt{2}$. (b) $d^2U/dx^2 = 12x^2 - 8$. At $x=0$: $-8 < 0$ → unstable. At $x = \\pm\\sqrt{2}$: $12(2)-8 = 16 > 0$ → stable. (c) At turning points, $KE = 0$: $U(x) = E = -3$. $x^4 - 4x^2 = -3 \\Rightarrow x^4 - 4x^2 + 3 = 0 \\Rightarrow (x^2-1)(x^2-3) = 0 \\Rightarrow x = \\pm 1, \\pm\\sqrt{3}$. For particle near $x = +\\sqrt{2}$: turning points at $x = 1$ and $x = \\sqrt{3}$."
+            },
+            {
+              q: "LEVEL 3 — A chain of mass $M$ and length $L$ lies on a frictionless table with a fraction $f$ hanging off the edge. Using energy methods: (a) Set up and evaluate the integral to find the work done by gravity as the chain slides off completely. (b) Find the speed when the chain just leaves the table. (c) Find the fraction $f_{min}$ above which the chain slides off spontaneously.",
+              a: "(a) Let $x$ = length hanging at any instant; linear mass density $\\lambda = M/L$. PE of hanging part (taking table top as zero): $U = \\int_0^x \\lambda g (-y)\\,dy$ where $y$ is distance below table. With $x$ hanging: hanging portion has center of mass at $x/2$ below table: $U = -\\lambda g x^2/2$. Initial PE (fraction $fL$ hanging): $U_i = -\\lambda g (fL)^2/2$. Final PE (all $L$ hanging before it falls free... actually all slides off): When fully hanging, length $= L$, CM at $L/2$: $U_f = -\\lambda g L^2/2$. $W_{gravity} = -(U_f - U_i) = \\frac{\\lambda g}{2}(L^2 - f^2L^2) = \\frac{MgL}{2}(1-f^2)$. (b) $W = \\Delta KE$: $\\frac{MgL}{2}(1-f^2) = \\frac{1}{2}Mv^2 \\Rightarrow v = \\sqrt{gL(1-f^2)}$. (c) Chain slides when: gravity force on hanging part exceeds zero: always slides (no friction). The minimum to start moving spontaneously = any $f > 0$ (frictionless). If there's friction $\\mu$: balance: $\\lambda(fL)g = \\mu \\lambda(1-f)Lg \\Rightarrow f/(1-f) = \\mu \\Rightarrow f_{min} = \\mu/(1+\\mu)$."
+            }
+          ],
+          frq: "A particle moves in one dimension under the potential energy $U(x) = U_0\\left[\\left(\\frac{a}{x}\\right)^{12} - 2\\left(\\frac{a}{x}\\right)^6\\right]$ (the Lennard-Jones potential, $x > 0$). (a) Find the equilibrium position $x_{eq}$. (b) Find the depth of the potential well (dissociation energy). (c) Show that near equilibrium, the potential is approximately parabolic (i.e., the motion is approximately simple harmonic) by expanding $U$ to second order in $(x - x_{eq})$. (d) Identify the effective spring constant $k_{eff}$ for this approximation. (e) Find the frequency of small oscillations.",
+          video: { title: "Conservation of Energy and Potential Energy Functions", url: "https://www.youtube.com/embed/6RU9TMDJ1M0" }
+        },
+        {
+          title: "Power",
+          explanation: [
+            "Power is the rate at which work is done, or equivalently, the rate of energy transfer: $P = \\frac{dW}{dt}$. For a constant force: $P = Fv\\cos\\theta = \\vec{F}\\cdot\\vec{v}$. The SI unit is the watt (W = J/s). Average power: $\\bar{P} = W/\\Delta t$. The distinction between instantaneous and average power is important for problems with time-varying forces or velocities.",
+            "For a machine applying constant force while an object accelerates, the power output is not constant — it increases as $v$ increases. The engine of a car has a maximum power output; as the car speeds up at full throttle, the net force decreases because more power goes toward overcoming drag (which grows with $v^2$ for air resistance).",
+            "At terminal velocity (car at top speed), the drive force exactly equals all resistive forces, and the engine power goes entirely to overcoming drag: $P = F_{drag} v_{max}$. Setting up the power budget is a common AP problem type.",
+            "Total work equals the integral of power over time: $W = \\int P(t)\\,dt$. Conversely, if you know how power varies with velocity: $P = Fv$ and $F = ma$, you can derive interesting differential equations for $v(t)$."
+          ],
+          equations: [
+            { formula: "P = dW/dt = F⃗·v⃗", meaning: "Instantaneous power equals force dotted with velocity; scalar quantity" },
+            { formula: "P_avg = W/Δt", meaning: "Average power equals total work divided by time elapsed" },
+            { formula: "W = ∫P(t) dt", meaning: "Total work equals the integral of power over time" },
+            { formula: "P_max = F_drag · v_max", meaning: "At maximum speed, all engine power overcomes drag (no acceleration)" }
+          ],
+          mistakes: [
+            "Using $P = Fv$ with $F$ as net force — $P = Fv$ uses the force of interest (e.g., engine force), not net force.",
+            "Assuming constant power implies constant acceleration — at constant power $P$, $F = P/v$ decreases as $v$ increases, so $a = F/m$ also decreases.",
+            "Confusing watts and horsepower — remember 1 hp ≈ 746 W if given in mixed units."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A motor lifts a 500 kg elevator at constant speed of $3$ m/s. What power does the motor develop?",
+              a: "At constant speed, net force = 0, so motor force = weight = $500(9.8) = 4900$ N. $P = Fv = 4900 \\times 3 = 14,700$ W = 14.7 kW."
+            },
+            {
+              q: "LEVEL 2 — A car engine delivers constant power $P = 60$ kW. The car mass is $1200$ kg and rolling resistance force is $f_r = 500$ N (constant). Neglect air drag. (a) Find the maximum speed. (b) Write a differential equation for $v(t)$ and find the speed as a function of time.",
+              a: "(a) At max speed: $P = f_r v_{max} \\Rightarrow v_{max} = 60000/500 = 120$ m/s. (b) $F_{engine} = P/v$. Newton's 2nd: $m\\frac{dv}{dt} = P/v - f_r$. This ODE: $m\\,v\\,dv/(P - f_r v) = dt$. Integrating: $-\\frac{m}{f_r}[v + \\frac{P}{f_r}\\ln(P-f_r v)]_0^v = t$. (Complex expression; often left in implicit form or as DE.)"
+            },
+            {
+              q: "LEVEL 3 — The power output of a cyclist is $P(t) = P_0 e^{-t/\\tau}$ where $P_0 = 400$ W and $\\tau = 600$ s. The cyclist's total mass (with bike) is $80$ kg. Neglecting all resistance, (a) find the total work done over a 20-minute race. (b) Find the final speed assuming the cyclist starts from rest. (c) Write the differential equation for $v(t)$ and qualitatively describe the motion.",
+              a: "(a) $W = \\int_0^{1200} 400 e^{-t/600}dt = 400(-600)[e^{-2} - 1] = 240000(1 - e^{-2}) = 240000(0.865) \\approx 207,600$ J ≈ 208 kJ. (b) $W = \\Delta KE = \\frac{1}{2}mv^2 \\Rightarrow v = \\sqrt{2W/m} = \\sqrt{2(207600)/80} = \\sqrt{5190} \\approx 72$ m/s (unrealistically high — because we neglect drag). (c) $m\\frac{dv}{dt} = P(t)/v = P_0 e^{-t/\\tau}/v$. Multiply both sides by $v$: $mv\\frac{dv}{dt} = \\frac{d}{dt}(\\frac{1}{2}mv^2) = P_0 e^{-t/\\tau}$. So $\\frac{1}{2}mv^2 = \\int P_0 e^{-t/\\tau}dt$ — consistent with work-energy theorem. Velocity increases quickly at first, then more slowly as power fades."
+            }
+          ],
+          frq: "A car of mass $m$ has an engine that delivers constant power $P_0$. The drag force is $F_d = bv^2$. (a) Write Newton's second law as a differential equation for $v(t)$. (b) Find the terminal velocity $v_T$ in terms of $P_0$ and $b$. (c) Without solving the full ODE, determine the acceleration when $v = v_T/2$. (d) Sketch $v(t)$ qualitatively, clearly indicating $v_T$ and the concavity of the curve. (e) The car's fuel efficiency (distance per energy) is $\\eta = v/P_0$. Find the speed that maximizes $\\eta$ in terms of $v_T$ — does this match intuition?",
+          video: { title: "Power — AP Physics C Mechanics", url: "https://www.youtube.com/embed/w4QFJb9a8vo" }
+        }
+      ]
+    },
+    {
+      id: "momentum",
+      title: "Linear Momentum",
+      overview: "Linear momentum $\\vec{p} = m\\vec{v}$ is conserved in isolated systems — a consequence of Newton's third law and one of the most powerful principles in physics. This unit covers the impulse-momentum theorem (which provides the most general statement of Newton's second law), collision analysis (elastic, inelastic, and perfectly inelastic), and the motion of the center of mass. These concepts apply to systems ranging from billiard balls to rocket propulsion.",
+      lessons: [
+        {
+          title: "Impulse, Momentum, and the Impulse-Momentum Theorem",
+          explanation: [
+            "Linear momentum is defined as $\\vec{p} = m\\vec{v}$, a vector quantity. Newton's second law in its most fundamental form is $\\vec{F}_{net} = \\frac{d\\vec{p}}{dt}$ — the net force equals the rate of change of momentum. For constant mass, this reduces to $\\vec{F}_{net} = m\\vec{a}$, but the momentum form is more general (applicable to variable-mass systems like rockets).",
+            "Impulse $\\vec{J}$ is the integral of force over time: $\\vec{J} = \\int_{t_1}^{t_2} \\vec{F}(t)\\,dt = \\Delta\\vec{p}$. The Impulse-Momentum Theorem states that the impulse equals the change in momentum. For a constant force, $J = F\\Delta t$. For a time-varying force, the impulse equals the area under the $F$-$t$ graph.",
+            "The concept of average force during a collision is important: $\\vec{F}_{avg} = \\Delta\\vec{p}/\\Delta t$. This is why collision times matter — a shorter collision (e.g., a hard floor versus a padded mat) produces larger average forces for the same impulse. Safety engineering (airbags, crumple zones) works by increasing collision time, reducing peak force.",
+            "Conservation of linear momentum applies when the net external force on a system is zero: $\\sum \\vec{p}_i = $ constant. This is most useful in collision problems. The total momentum of an isolated system is the same before and after any interaction, regardless of the internal forces."
+          ],
+          equations: [
+            { formula: "p⃗ = mv⃗", meaning: "Linear momentum — a vector quantity in the direction of velocity" },
+            { formula: "F⃗_net = dp⃗/dt", meaning: "Newton's 2nd law in its most general form — the net force equals rate of change of momentum" },
+            { formula: "J⃗ = ∫F dt = Δp⃗", meaning: "Impulse-Momentum Theorem: impulse equals change in momentum" },
+            { formula: "F_avg = Δp/Δt", meaning: "Average force during collision equals impulse divided by collision time" }
+          ],
+          mistakes: [
+            "Applying conservation of momentum when external forces act — check whether the net external impulse is negligible before invoking conservation.",
+            "Forgetting that momentum is a vector — components must be conserved separately in 2D problems.",
+            "Using $J = F\\Delta t$ when the force varies with time — the area under the $F$-$t$ curve is required.",
+            "Confusing impulse (vector, units N·s) with momentum (vector, units kg·m/s) — dimensionally identical but conceptually distinct."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A 0.15 kg baseball is thrown at 40 m/s. The batter hits it back at 55 m/s in the opposite direction. The contact time is 1.2 ms. Find the impulse and the average force on the ball.",
+              a: "Taking the initial direction as positive: $p_i = 0.15(40) = 6$ kg·m/s; $p_f = 0.15(-55) = -8.25$ kg·m/s. $J = \\Delta p = -8.25 - 6 = -14.25$ N·s (magnitude 14.25 N·s, directed backward). $F_{avg} = 14.25/0.0012 = 11,875$ N ≈ 11.9 kN."
+            },
+            {
+              q: "LEVEL 2 — A force on a 2 kg object varies as $F(t) = (8t - 2t^2)$ N for $0 \\le t \\le 4$ s. The object starts at rest. Find (a) the impulse over the 4-second interval, (b) the final velocity, and (c) the time at which the force is maximum and the value of that maximum force.",
+              a: "(a) $J = \\int_0^4(8t-2t^2)dt = [4t^2 - \\frac{2t^3}{3}]_0^4 = 64 - 42.67 = 21.33$ N·s. (b) $\\Delta p = J = 21.33$; $\\Delta v = 21.33/2 = 10.67$ m/s. Final velocity = 10.67 m/s. (c) $dF/dt = 8 - 4t = 0 \\Rightarrow t = 2$ s. $F_{max} = 8(2) - 2(4) = 16 - 8 = 8$ N."
+            },
+            {
+              q: "LEVEL 3 — A rocket of initial mass $M_0$ (including fuel) burns fuel at rate $\\dot{m}$ kg/s, expelling it at speed $v_e$ relative to the rocket. Derive the rocket equation using impulse-momentum applied to the rocket system over time interval $dt$.",
+              a: "At time $t$: rocket mass $= M(t)$, velocity $= v$. In time $dt$: fuel $dm = \\dot{m}\\,dt$ is ejected at velocity $v - v_e$ (backward) relative to ground. By momentum conservation (no external forces): $M(t)v = [M(t) - dm](v + dv) + dm(v - v_e)$. Expand: $Mv = Mv + M\\,dv - v\\,dm - dm\\,dv + v\\,dm - v_e dm$. Simplify (drop $dm\\,dv$): $0 = M\\,dv - v_e dm$. Since $dm = \\dot{m}\\,dt = -dM$ (mass decreasing): $M\\,dv = v_e(-dM) \\Rightarrow M\\frac{dv}{dt} = v_e \\dot{m} = $ thrust. Tsiolkovsky rocket equation: $\\Delta v = v_e \\ln(M_0/M_f)$."
+            }
+          ],
+          frq: "A 60 kg skater moving at 5 m/s east on frictionless ice catches a 20 kg ball thrown at 15 m/s from the south (perpendicular to the skater's motion). (a) Use impulse-momentum to find the skater's final velocity (magnitude and direction). (b) Compute the kinetic energy lost in this 'catch' interaction. (c) A force sensor records the force on the skater during catching as $F(t) = F_0 \\sin(\\pi t / T)$ for $0 \\le t \\le T$ (half-sine pulse). Given your result for the impulse magnitude, solve for $F_0$ in terms of $T$. (d) If $T = 0.3$ s, find $F_0$ and compare to the skater's weight.",
+          video: { title: "Impulse and Momentum — AP Physics C", url: "https://www.youtube.com/embed/wHep5gKWVNs" }
+        },
+        {
+          title: "Collisions — Elastic, Inelastic, and the Center of Mass",
+          explanation: [
+            "All collisions conserve momentum (assuming no significant external forces during the brief collision). They are classified by whether kinetic energy is also conserved. Elastic collisions: both momentum and KE conserved ($\\Delta KE = 0$). Perfectly inelastic: objects stick together (maximum KE loss). Inelastic: momentum conserved, some KE lost (but objects don't stick).",
+            "For two-body elastic collisions in 1D, both the momentum and energy equations must be solved simultaneously. The result yields formulas for the final velocities: $v_1' = \\frac{m_1 - m_2}{m_1 + m_2}v_1 + \\frac{2m_2}{m_1+m_2}v_2$ and $v_2' = \\frac{2m_1}{m_1+m_2}v_1 + \\frac{m_2-m_1}{m_1+m_2}v_2$. Special cases: equal masses exchange velocities; very heavy target barely moves; very light target doubles the incident speed.",
+            "The center of mass (CM) moves with constant velocity in an isolated system: $\\vec{v}_{CM} = \\frac{\\sum m_i \\vec{v}_i}{\\sum m_i} = \\frac{\\vec{p}_{total}}{M_{total}}$. In the CM frame (where $\\vec{v}_{CM} = 0$), the total momentum is zero. Analyzing collisions in the CM frame simplifies elastic collision analysis considerably.",
+            "2D collisions require conserving each momentum component separately: $p_{x,before} = p_{x,after}$ and $p_{y,before} = p_{y,after}$. Combined with energy conservation (if elastic), there are three equations for four unknowns — one angle must be specified or measured experimentally."
+          ],
+          equations: [
+            { formula: "p_total = const (if F_ext = 0)", meaning: "Conservation of linear momentum for isolated systems" },
+            { formula: "v₁' = (m₁−m₂)v₁/(m₁+m₂) + 2m₂v₂/(m₁+m₂)", meaning: "Elastic collision result for object 1's final velocity (1D)" },
+            { formula: "v_CM = Σm_iv_i / Σm_i = p_total/M", meaning: "Velocity of the center of mass" },
+            { formula: "r⃗_CM = Σm_i r⃗_i / Σm_i", meaning: "Position of the center of mass — the mass-weighted average position" }
+          ],
+          mistakes: [
+            "Assuming all collisions are elastic — the vast majority of real-world collisions are inelastic. Only perfectly controlled atomic interactions are elastic.",
+            "For perfectly inelastic collisions in 2D, conserving only the x-component — both components must be conserved.",
+            "Failing to recognize that the CM's velocity is unchanged by internal forces — it's always $v_{CM} = p_{total}/M$.",
+            "Using the elastic-collision velocity formulas when the collision is inelastic — energy conservation doesn't apply there."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A 4 kg cart at 6 m/s east strikes a stationary 2 kg cart. If the collision is perfectly inelastic, find the final velocity and the fraction of KE lost.",
+              a: "$(4)(6) + 0 = (6)v_f \\Rightarrow v_f = 4$ m/s. $KE_i = \\frac{1}{2}(4)(36) = 72$ J. $KE_f = \\frac{1}{2}(6)(16) = 48$ J. Fraction lost = $24/72 = 1/3$."
+            },
+            {
+              q: "LEVEL 2 — Prove that in a perfectly inelastic collision, the fraction of kinetic energy lost is always $m_2/(m_1 + m_2)$ when object 2 is initially at rest. Use this to explain why large vehicles sustain proportionally less damage in collisions with smaller vehicles.",
+              a: "$v_f = m_1 v_1/(m_1+m_2)$. $KE_i = \\frac{1}{2}m_1 v_1^2$. $KE_f = \\frac{1}{2}(m_1+m_2)v_f^2 = \\frac{1}{2}\\frac{m_1^2 v_1^2}{m_1+m_2}$. $\\Delta KE / KE_i = 1 - m_1/(m_1+m_2) = m_2/(m_1+m_2)$. When $m_2 \\ll m_1$: very little KE is lost → the large vehicle barely slows, absorbing little of the collision energy deformation. The small vehicle must absorb nearly all of the relative kinetic energy."
+            },
+            {
+              q: "LEVEL 3 — A ball of mass $m$ is fired at a stationary ball of mass $M$ at rest. The collision is elastic. The projectile scatters at angle $\\theta_1 = 30°$ above the incident direction. Find the recoil angle $\\theta_2$ of the target ball and both final speeds. ($m = 1$ kg, $M = 2$ kg, $v_0 = 10$ m/s)",
+              a: "Conservation of $p_x$: $mv_0 = mv_1\\cos30° + Mv_2\\cos\\theta_2$. Conservation of $p_y$: $0 = mv_1\\sin30° - Mv_2\\sin\\theta_2$. Energy: $\\frac{1}{2}mv_0^2 = \\frac{1}{2}mv_1^2 + \\frac{1}{2}Mv_2^2$. Three equations, three unknowns ($v_1, v_2, \\theta_2$). Numerical: $10 = v_1\\cos30° + 2v_2\\cos\\theta_2$; $v_1\\sin30° = 2v_2\\sin\\theta_2$; $100 = v_1^2 + 2v_2^2$. From energy: must solve simultaneously. This requires careful algebra; typical AP problems specify $\\theta_1$ and use these three equations."
+            }
+          ],
+          frq: "A ballistic pendulum consists of a wooden block of mass $M$ suspended by a string of length $L$. A bullet of mass $m$ and horizontal speed $v_0$ embeds in the block, and the system swings to a maximum angle $\\theta$. (a) Using conservation of momentum, find the speed of the block immediately after impact. (b) Using conservation of energy, find the initial bullet speed $v_0$ in terms of $M$, $m$, $g$, $L$, and $\\theta$. (c) Show that the fraction of kinetic energy converted to thermal energy during impact is $M/(M+m)$. (d) A rifle fires a 10 g bullet into a 1.0 kg pendulum of length 0.8 m, and the block swings to $\\theta = 23°$. Calculate $v_0$. (e) Discuss sources of systematic error in using this device to measure bullet speed.",
+          video: { title: "Elastic and Inelastic Collisions — AP Physics C", url: "https://www.youtube.com/embed/VFQXMSyWPSs" }
+        }
+      ]
+    },
+    {
+      id: "torque",
+      title: "Torque and Rotational Dynamics",
+      overview: "Rotational dynamics extends Newton's laws to rotating systems using the moment of inertia as the rotational analog of mass, and torque as the rotational analog of force. The defining equation $\\vec{\\tau}_{net} = I\\vec{\\alpha}$ parallels $\\vec{F}_{net} = m\\vec{a}$. Calculating moments of inertia through integration, applying the parallel-axis theorem, and solving statics problems with torque balance are the core skills of this unit.",
+      lessons: [
+        {
+          title: "Torque and the Cross Product",
+          explanation: [
+            "Torque is the rotational analog of force — it is the tendency of a force to produce rotation about an axis. Mathematically, torque is defined as the cross product: $\\vec{\\tau} = \\vec{r} \\times \\vec{F}$, where $\\vec{r}$ is the position vector from the rotation axis to the point of application of the force. The magnitude is $|\\tau| = rF\\sin\\phi$, where $\\phi$ is the angle between $\\vec{r}$ and $\\vec{F}$.",
+            "The perpendicular distance from the axis to the line of action of the force is the moment arm (or lever arm) $d = r\\sin\\phi$. Thus $\\tau = Fd$. Equivalently, only the component of force perpendicular to $\\vec{r}$ contributes to torque: $\\tau = r F_\\perp$. These two formulations are equivalent.",
+            "The direction of torque is given by the right-hand rule: curl the fingers from $\\vec{r}$ to $\\vec{F}$; the thumb points in the direction of $\\vec{\\tau}$. Counterclockwise torques are conventionally positive; clockwise torques are negative.",
+            "For a system of forces, the net torque about a chosen axis is the algebraic sum of individual torques. The choice of axis can simplify calculations dramatically — always choose the axis to eliminate unknown torques from the equation."
+          ],
+          equations: [
+            { formula: "τ⃗ = r⃗ × F⃗", meaning: "Torque as the cross product of position and force vectors" },
+            { formula: "|τ| = rF sinφ = Fd", meaning: "Magnitude of torque; d = moment arm = perpendicular distance from axis to line of action" },
+            { formula: "τ = r × F_⊥ = r_⊥ × F", meaning: "Two equivalent forms: use perpendicular force component OR perpendicular distance" }
+          ],
+          mistakes: [
+            "Taking the moment arm as the distance to the point of application instead of the perpendicular distance from the axis to the line of action of the force.",
+            "Choosing the wrong axis for a statics problem — choose to eliminate as many unknown torques as possible (usually at the point of an unknown force).",
+            "Forgetting that torque depends on the choice of axis — a force that produces zero torque about one point may produce nonzero torque about another.",
+            "Sign errors in the cross product direction — always apply the right-hand rule carefully for 3D torque problems."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A wrench applies a force of 80 N perpendicular to the handle. The handle is 0.25 m long. Find the torque. If instead the force is applied at 40° to the handle, find the torque.",
+              a: "(a) $\\tau = rF\\sin90° = 0.25(80)(1) = 20$ N·m. (b) $\\tau = 0.25(80)\\sin40° = 20(0.643) = 12.9$ N·m."
+            },
+            {
+              q: "LEVEL 2 — A uniform 3 m beam of mass 20 kg is supported at both ends. A 50 kg person stands 1 m from the left end. Find the support forces at each end.",
+              a: "Take torques about the left end: $R_{right}(3) = 50g(1) + 20g(1.5) = 50g + 30g = 80g$. $R_{right} = 80g/3 = 261$ N. $R_{left} = (50+20)g - R_{right} = 686 - 261 = 425$ N."
+            },
+            {
+              q: "LEVEL 3 — A ladder of mass $m$ and length $L$ leans against a smooth frictionless wall at angle $\\theta$ from vertical. The floor has friction coefficient $\\mu_s$. A person of mass $M$ climbs the ladder. Derive the maximum distance up the ladder the person can climb before the ladder slips.",
+              a: "Forces: Normal from wall $N_w$ (horizontal, at top), Normal from floor $N_f$ (vertical, at bottom), Friction $f = \\mu_s N_f$ (horizontal at bottom). Vertical: $N_f = (M+m)g$. Horizontal: $N_w = f = \\mu_s(M+m)g$. Torques about bottom: $N_w \\cdot L\\cos\\theta = Mg \\cdot d\\sin\\theta + mg \\cdot \\frac{L}{2}\\sin\\theta$. $\\mu_s(M+m)g L\\cos\\theta = (Md + \\frac{mL}{2})g\\sin\\theta$. $d = \\frac{\\mu_s(M+m)L\\cos\\theta - \\frac{mL}{2}\\sin\\theta}{M\\sin\\theta} = \\frac{L}{M}\\left[\\mu_s(M+m)\\cot\\theta - \\frac{m}{2}\\right]$."
+            }
+          ],
+          frq: "A 4.0 m uniform plank of mass 12 kg is placed with one end on a ledge 2.0 m above the floor and the other end resting on the floor. A person of mass 65 kg begins at the lower end and walks toward the upper end. The ledge is frictionless; the floor has static friction $\\mu_s = 0.45$. The plank makes angle $\\theta = 30°$ with the horizontal. (a) Draw a complete FBD of the plank. (b) Find the normal forces and friction force when the person is at the lower end. (c) Derive an expression for the friction force as a function of the person's distance $d$ from the lower end. (d) Find the maximum distance the person can walk before the plank slips.",
+          video: { title: "Torque — Rotational Dynamics AP Physics C", url: "https://www.youtube.com/embed/v_PF7ioFm_I" }
+        },
+        {
+          title: "Moment of Inertia and Newton's Second Law for Rotation",
+          explanation: [
+            "The moment of inertia $I$ quantifies rotational inertia — the resistance of a rigid body to angular acceleration. For a collection of point masses: $I = \\sum m_i r_i^2$, where $r_i$ is the perpendicular distance from each mass to the rotation axis. For a continuous body, this becomes an integral: $I = \\int r^2\\, dm$.",
+            "Computing $I$ via integration is a critical AP Physics C skill. For a uniform rod rotating about one end (axis perpendicular to rod): $dm = (M/L)dx$, $I = \\int_0^L x^2 \\frac{M}{L}dx = \\frac{ML^2}{3}$. About the center: $I = \\frac{ML^2}{12}$. For a solid disk about its symmetry axis: using $dm = \\rho \\cdot 2\\pi r\\, dr \\cdot t$, gives $I = \\frac{1}{2}MR^2$.",
+            "The Parallel Axis Theorem: $I = I_{CM} + Md^2$, where $I_{CM}$ is the moment of inertia about a parallel axis through the CM, and $d$ is the distance between the two axes. This enormously simplifies calculations — compute $I_{CM}$ once, then shift to any parallel axis.",
+            "Newton's second law for rotation: $\\vec{\\tau}_{net} = I\\vec{\\alpha}$, where $\\alpha = d\\omega/dt = d^2\\theta/dt^2$ is the angular acceleration. This equation parallels $F = ma$ exactly. Every concept from translational dynamics has a rotational analog: $F \\to \\tau$, $m \\to I$, $a \\to \\alpha$."
+          ],
+          equations: [
+            { formula: "I = ∫r² dm", meaning: "Moment of inertia for continuous body — integral of r-squared over all mass elements" },
+            { formula: "I = I_CM + Md²", meaning: "Parallel Axis Theorem: shift moment of inertia from CM axis to any parallel axis" },
+            { formula: "τ_net = Iα", meaning: "Newton's 2nd Law for rotation — torque equals moment of inertia times angular acceleration" },
+            { formula: "α = dω/dt = d²θ/dt²", meaning: "Angular acceleration is the rate of change of angular velocity" }
+          ],
+          mistakes: [
+            "Using the wrong axis for the parallel-axis theorem — $I_{CM}$ must be about the center of mass, and $d$ is the distance to the new axis.",
+            "Forgetting to use the parallel-axis theorem when an axis is not through the CM — always check the rotation axis location.",
+            "Treating the moment of inertia as the same for all axes — $I$ depends strongly on which axis is chosen.",
+            "Using $\\tau = Ia$ instead of $\\tau = I\\alpha$ — $\\alpha$ is angular acceleration in rad/s², not linear."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — Find the moment of inertia of a uniform solid sphere of mass $M$ and radius $R$ about a diameter using integration. (Set up the integral by treating the sphere as a stack of disks.)",
+              a: "Disk at height $y$ has radius $r = \\sqrt{R^2 - y^2}$, thickness $dy$, mass $dm = \\rho \\pi r^2 dy$ where $\\rho = 3M/(4\\pi R^3)$. $I = \\int_{-R}^{R} \\frac{1}{2}r^2 dm = \\int_{-R}^{R} \\frac{1}{2}(R^2-y^2)\\rho\\pi(R^2-y^2)dy = \\frac{\\rho\\pi}{2}\\int_{-R}^R (R^2-y^2)^2 dy$. Expand and integrate: $= \\frac{\\rho\\pi}{2}\\int_{-R}^R(R^4 - 2R^2 y^2 + y^4)dy = \\frac{\\rho\\pi}{2}[R^4 y - \\frac{2R^2 y^3}{3} + \\frac{y^5}{5}]_{-R}^R = \\frac{\\rho\\pi}{2} \\cdot 2(R^5 - \\frac{2R^5}{3} + \\frac{R^5}{5}) = \\rho\\pi R^5 \\cdot \\frac{8}{15} = \\frac{2}{5}MR^2$."
+            },
+            {
+              q: "LEVEL 2 — A massless string wraps around a solid cylinder (mass $M$, radius $R$, $I = \\frac{1}{2}MR^2$). A hanging mass $m$ is attached to the string. Find the acceleration of $m$ and the tension in the string.",
+              a: "For mass $m$: $mg - T = ma$. For cylinder: $\\tau = TR = I\\alpha = \\frac{1}{2}MR^2(a/R) = \\frac{1}{2}MRa \\Rightarrow T = \\frac{Ma}{2}$. Substituting: $mg = ma + \\frac{Ma}{2} = a(m + M/2) \\Rightarrow a = \\frac{mg}{m + M/2} = \\frac{2mg}{2m+M}$. $T = \\frac{Mmg}{2m+M}$."
+            },
+            {
+              q: "LEVEL 3 — Derive the moment of inertia of a uniform thin spherical shell of mass $M$ and radius $R$ about a diameter using integration. Then use the shell result and integration to rederive the solid sphere result.",
+              a: "Shell: Area element at polar angle $\\theta$ (from axis): $dA = 2\\pi R\\sin\\theta \\cdot R\\,d\\theta$. Distance from axis: $r = R\\sin\\theta$. $dm = \\sigma \\cdot dA = \\frac{M}{4\\pi R^2} \\cdot 2\\pi R^2 \\sin\\theta\\,d\\theta = \\frac{M}{2}\\sin\\theta\\,d\\theta$. $I_{shell} = \\int_0^\\pi r^2 dm = \\int_0^\\pi R^2\\sin^2\\theta \\cdot \\frac{M}{2}\\sin\\theta\\,d\\theta = \\frac{MR^2}{2}\\int_0^\\pi \\sin^3\\theta\\,d\\theta = \\frac{MR^2}{2}\\cdot\\frac{4}{3} = \\frac{2}{3}MR^2$. Solid sphere: treat as shells from $r=0$ to $R$: $dm_{shell} = 4\\pi r^2 dr \\cdot \\rho$; $dI = \\frac{2}{3}r^2 dm_{shell}$. $I = \\int_0^R \\frac{2}{3}r^2 \\cdot 4\\pi r^2 \\rho\\,dr = \\frac{8\\pi\\rho}{3}\\cdot\\frac{R^5}{5} = \\frac{8\\pi}{3} \\cdot \\frac{3M}{4\\pi R^3}\\cdot\\frac{R^5}{5} = \\frac{2}{5}MR^2$. ✓"
+            }
+          ],
+          frq: "A uniform thin rod of mass $M$ and length $L$ is pivoted at one end and held horizontal. It is released from rest. (a) Calculate the moment of inertia about the pivot using integration. (b) Immediately after release, find the angular acceleration. (c) Find the angular velocity when the rod is vertical using energy conservation. (d) Find the linear speed of the rod's free end when vertical. (e) Find the angular acceleration when the rod makes angle $\\theta$ with the vertical. (f) Using your result from (e), set up a differential equation for $\\theta(t)$ and identify why it is NOT simple harmonic motion.",
+          video: { title: "Moment of Inertia Derivation by Integration", url: "https://www.youtube.com/embed/BaB6EBJT5AY" }
+        }
+      ]
+    },
+    {
+      id: "rotation-energy",
+      title: "Energy and Momentum of Rotating Systems",
+      overview: "This unit unifies translational and rotational mechanics through the concepts of rotational kinetic energy, angular momentum, and rolling motion. Conservation of angular momentum is one of the most powerful principles in physics, governing phenomena from spinning tops and divers tucking mid-air to planetary formation and black holes. Rolling without slipping introduces a kinematic constraint linking translational and rotational motion.",
+      lessons: [
+        {
+          title: "Rotational Kinetic Energy and Rolling Without Slipping",
+          explanation: [
+            "A rotating rigid body has kinetic energy due to its rotation: $KE_{rot} = \\frac{1}{2}I\\omega^2$. For an object both translating and rotating (like a rolling wheel), the total kinetic energy is $KE_{total} = \\frac{1}{2}Mv_{CM}^2 + \\frac{1}{2}I_{CM}\\omega^2$ — the translational KE of the CM plus the rotational KE about the CM.",
+            "The rolling without slipping constraint: when a wheel of radius $R$ rolls without slipping, the contact point has zero velocity. This gives the constraint $v_{CM} = R\\omega$ and $a_{CM} = R\\alpha$. This constraint allows us to write all kinetic energy in terms of a single variable.",
+            "For a rolling object down an incline: energy conservation gives $mgh = \\frac{1}{2}mv^2 + \\frac{1}{2}I\\omega^2 = \\frac{1}{2}mv^2(1 + I/mR^2)$. Thus $v = \\sqrt{\\frac{2gh}{1 + I/mR^2}}$. Objects with more of their mass concentrated at large radius (like a hollow sphere) roll more slowly than those with mass near the center (like a solid sphere). Note this result is independent of mass and radius — it depends only on the shape!",
+            "Friction in rolling: static friction at the contact point provides the torque that creates angular acceleration. For rolling without slipping, this friction is static (no energy dissipation). The requirement for rolling without slipping to hold is that the required friction doesn't exceed $\\mu_s N$."
+          ],
+          equations: [
+            { formula: "KE_rot = ½Iω²", meaning: "Rotational kinetic energy of a rigid body" },
+            { formula: "KE_total = ½Mv²_CM + ½I_CM ω²", meaning: "Total KE of rolling object: translational + rotational" },
+            { formula: "v_CM = Rω (rolling constraint)", meaning: "Constraint for rolling without slipping — links translational and rotational variables" },
+            { formula: "v = √(2gh / (1 + I/MR²))", meaning: "Speed at bottom of incline for rolling object — slower for larger I/MR² ratio" }
+          ],
+          mistakes: [
+            "Omitting rotational kinetic energy when an object rolls — this consistently leads to overestimating the speed at the bottom of an incline.",
+            "Using $v = R\\omega$ when the object is slipping — the rolling constraint only holds when there is no slipping.",
+            "Applying energy conservation to rolling on a rough surface when slipping occurs — kinetic friction then dissipates energy and energy is not conserved.",
+            "Confusing $I_{CM}$ and $I_{axis}$ in the total kinetic energy — always use $I_{CM}$ for the rotational part of rolling."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A solid sphere ($I = \\frac{2}{5}MR^2$) and a hollow sphere ($I = \\frac{2}{3}MR^2$) of equal mass and radius are released from the same height on an incline. Which reaches the bottom first, and by what ratio of speeds?",
+              a: "$v_{solid} = \\sqrt{2gh/(1+2/5)} = \\sqrt{2gh \\cdot 5/7} = \\sqrt{10gh/7}$. $v_{hollow} = \\sqrt{2gh/(1+2/3)} = \\sqrt{2gh \\cdot 3/5} = \\sqrt{6gh/5}$. Ratio: $v_{solid}/v_{hollow} = \\sqrt{(10/7)/(6/5)} = \\sqrt{50/42} = \\sqrt{25/21} \\approx 1.09$. Solid sphere arrives first, ~9% faster."
+            },
+            {
+              q: "LEVEL 2 — A disk ($I = \\frac{1}{2}MR^2$, $M = 2$ kg, $R = 0.3$ m) rolls without slipping and hits a spring ($k = 500$ N/m) at the bottom of an incline. It was released from height $h = 1.5$ m. Find the maximum spring compression.",
+              a: "$KE_{total} = mgh = 2(9.8)(1.5) = 29.4$ J (all PE converted since rolling, no slip). At max compression: $KE = 0$ (but disk still rotates? No — the spring stops the CM, so if disk stops entirely, $\\omega = 0$ too). $\\frac{1}{2}kx^2 = 29.4 \\Rightarrow x = \\sqrt{2(29.4)/500} = \\sqrt{0.1176} = 0.343$ m."
+            },
+            {
+              q: "LEVEL 3 — A cylinder of mass $M$, radius $R$, and moment of inertia $I = \\frac{1}{2}MR^2$ rolls without slipping down an incline of angle $\\theta$. Using Newton's second law for both translation and rotation, (a) find the acceleration and the friction force. (b) Find the minimum coefficient of static friction required for rolling without slipping. (c) Show that the result from (a) matches the energy method result.",
+              a: "(a) Translation: $Mg\\sin\\theta - f = Ma$. Rotation about CM: $fR = I\\alpha = \\frac{1}{2}MR^2(a/R) = \\frac{1}{2}MRa \\Rightarrow f = \\frac{1}{2}Ma$. Substituting: $Mg\\sin\\theta - \\frac{1}{2}Ma = Ma \\Rightarrow a = \\frac{2}{3}g\\sin\\theta$. $f = \\frac{1}{3}Mg\\sin\\theta$. (b) $f \\le \\mu_s N = \\mu_s Mg\\cos\\theta$: $\\frac{1}{3}Mg\\sin\\theta \\le \\mu_s Mg\\cos\\theta \\Rightarrow \\mu_{s,min} = \\frac{1}{3}\\tan\\theta$. (c) Energy method: $v^2 = 2ah \\to v^2 = 2 \\cdot \\frac{2}{3}g\\sin\\theta \\cdot h$. Also, from rolling formula: $v^2 = \\frac{2gh}{1+I/MR^2} = \\frac{2gh}{1+1/2} = \\frac{4gh}{3} = \\frac{4g(d\\sin\\theta)}{3}$ where $d$ is distance along slope. With $h = d\\sin\\theta$: $v^2 = \\frac{4gd\\sin\\theta}{3} = 2 \\cdot \\frac{2g\\sin\\theta}{3} \\cdot d$. ✓ Same acceleration."
+            }
+          ],
+          frq: "A spool consists of a central cylinder of radius $r$ and mass $m_1$, with two identical disks of radius $R$ and mass $m_2$ each attached to the ends. The moment of inertia about the central axis is $I = \\frac{1}{2}m_1 r^2 + m_2 R^2$. A string wrapped around the central cylinder is pulled horizontally with force $F$. The spool rolls without slipping on a horizontal surface. (a) Draw a FBD. (b) Write the equations for translation and rotation. (c) Solve for the acceleration of the CM. (d) Find the direction and magnitude of friction. (e) Determine the condition on $F$, $R$, $r$, and the coefficient of friction for rolling without slipping to hold.",
+          video: { title: "Rolling Without Slipping — Rotational Kinetic Energy", url: "https://www.youtube.com/embed/XFhUq-9YKQQ" }
+        },
+        {
+          title: "Angular Momentum and Its Conservation",
+          explanation: [
+            "Angular momentum $\\vec{L}$ is defined as $\\vec{L} = \\vec{r} \\times \\vec{p} = m\\vec{r} \\times \\vec{v}$ for a point particle, or $\\vec{L} = I\\vec{\\omega}$ for a rigid body rotating about a fixed axis. It is a vector quantity, with direction given by the right-hand rule of $\\vec{\\omega}$.",
+            "Newton's second law for rotation in its most general form is $\\vec{\\tau}_{net} = \\frac{d\\vec{L}}{dt}$. This perfectly mirrors $\\vec{F}_{net} = d\\vec{p}/dt$. When $\\vec{\\tau}_{net} = 0$, $\\vec{L} = $ constant — conservation of angular momentum. This holds independently of any translational motion.",
+            "Conservation of angular momentum: when no external torques act on a system, $I_1\\omega_1 = I_2\\omega_2$. The classic demonstration is a spinning ice skater pulling in her arms — her $I$ decreases, so $\\omega$ increases to conserve $L$. Note that kinetic energy is NOT conserved when $I$ changes (the skater does internal muscular work).",
+            "Angular impulse is the rotational analog of impulse: $\\int \\vec{\\tau}\\,dt = \\Delta\\vec{L}$. For a collision involving rotation, the angular impulse of impact forces during the brief collision changes the angular momentum. If the collision time is very short, only the impact torque matters — gravity's torque is negligible during the collision (an important approximation in AP problems)."
+          ],
+          equations: [
+            { formula: "L⃗ = r⃗ × p⃗ = Iω⃗", meaning: "Angular momentum: cross product of position and linear momentum, or moment of inertia times angular velocity" },
+            { formula: "τ⃗_net = dL⃗/dt", meaning: "The most general rotational form of Newton's 2nd law" },
+            { formula: "I₁ω₁ = I₂ω₂ (if τ_net = 0)", meaning: "Conservation of angular momentum — holds when no external torques act" },
+            { formula: "∫τ dt = ΔL", meaning: "Angular impulse equals change in angular momentum" }
+          ],
+          mistakes: [
+            "Applying conservation of angular momentum when a net external torque acts (e.g., friction or gravity) — always verify $\\tau_{net} = 0$ first.",
+            "Confusing the axis for $L = I\\omega$ — $I$ and $\\omega$ must both reference the same axis.",
+            "Thinking KE is conserved when $I$ changes — it is not. Internal work is done when a rotating body's shape changes.",
+            "For a point particle, $L = mvr\\sin\\theta$ where $\\theta$ is the angle between $\\vec{r}$ and $\\vec{v}$ — not simply $mvr$."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A figure skater spins at 2.5 rev/s with arms extended ($I_i = 4.8$ kg·m²). She pulls in her arms, reducing $I$ to $1.2$ kg·m². Find her new angular velocity and the ratio of final to initial kinetic energy.",
+              a: "$L = I_i\\omega_i = 4.8(2.5 \\times 2\\pi) = 75.4$ kg·m²/s. $\\omega_f = L/I_f = 75.4/1.2 = 62.8$ rad/s = 10 rev/s. $KE_i = \\frac{1}{2}(4.8)(2.5\\times2\\pi)^2 = \\frac{1}{2}(4.8)(246.7) = 592$ J. $KE_f = \\frac{1}{2}(1.2)(62.8)^2 = \\frac{1}{2}(1.2)(3944) = 2367$ J. Ratio = $2367/592 = 4 = I_i/I_f$. ✓"
+            },
+            {
+              q: "LEVEL 2 — A bullet of mass $m$ and speed $v_0$ strikes the end of a uniform rod of mass $M$ and length $L$ (pivoted at the other end) and embeds in it. Find (a) the angular velocity of the rod just after impact and (b) the height the center of the rod rises.",
+              a: "(a) Angular momentum about pivot: $L_{before} = mv_0 L$ (bullet at distance $L$). $I_{after} = I_{rod} + I_{bullet} = \\frac{ML^2}{3} + mL^2$. Conservation: $mv_0 L = (\\frac{M}{3}+m)L^2 \\omega \\Rightarrow \\omega = \\frac{mv_0}{(M/3+m)L}$. (b) Energy conservation after impact: $\\frac{1}{2}I\\omega^2 = (M+m)g\\Delta h_{CM}$. CM is at $L/2$ from pivot (approximately, ignoring bullet's small mass... actually it's shifted by bullet). Approx: $\\Delta h_{CM} = \\frac{I\\omega^2}{2(M+m)g}$."
+            },
+            {
+              q: "LEVEL 3 — A planet of mass $m$ orbits a star in an elliptical orbit. At perihelion (closest approach), its speed is $v_p$ and distance is $r_p$. (a) Using conservation of angular momentum, derive the speed at aphelion $r_a$. (b) Using energy conservation, derive a relation between $v_p$, $v_a$, $r_p$, $r_a$, and the star's mass $M$. (c) Derive Kepler's Third Law by combining angular momentum and energy conservation for an ellipse with semi-major axis $a = (r_p + r_a)/2$.",
+              a: "(a) At perihelion and aphelion, $\\vec{v} \\perp \\vec{r}$, so $L = mv_p r_p = mv_a r_a \\Rightarrow v_a = v_p r_p/r_a$. (b) Energy: $\\frac{1}{2}mv_p^2 - \\frac{GMm}{r_p} = \\frac{1}{2}mv_a^2 - \\frac{GMm}{r_a}$. Substituting $v_a$: $\\frac{1}{2}v_p^2 - \\frac{GM}{r_p} = \\frac{1}{2}\\frac{v_p^2 r_p^2}{r_a^2} - \\frac{GM}{r_a}$. Solve for $v_p^2 = \\frac{2GM r_a}{r_p(r_p+r_a)}$. (c) Area of ellipse $= \\pi ab$; for ellipse, $b^2 = r_p r_a$ (semi-minor axis). Rate of area swept = $L/(2m) = v_p r_p/2$. Period: $T = \\pi ab / (v_p r_p/2) = 2\\pi ab/(v_p r_p)$. Substituting $v_p$ and simplifying gives $T^2 = \\frac{4\\pi^2 a^3}{GM}$. ✓"
+            }
+          ],
+          frq: "A turntable (disk, mass $M$, radius $R$, $I = \\frac{1}{2}MR^2$) rotates freely at angular velocity $\\omega_0$. A small clay ball of mass $m$ is dropped from rest onto the turntable at distance $d$ from the center and sticks to it. (a) Find the new angular velocity $\\omega_f$. (b) Calculate the kinetic energy lost. (c) Now a second identical ball is dropped at distance $d$ on the opposite side of the center. Find the final angular velocity after the second ball sticks. (d) Explain physically why the second ball changes the angular velocity differently than the first. (e) Generalize: derive the angular velocity after $n$ balls are dropped symmetrically at radius $d$.",
+          video: { title: "Angular Momentum Conservation — AP Physics C", url: "https://www.youtube.com/embed/ty9QSiVC2g0" }
+        }
+      ]
+    },
+    {
+      id: "oscillations",
+      title: "Oscillations",
+      overview: "Oscillations describe periodic motion about an equilibrium position. Simple harmonic motion (SHM) is the paradigmatic oscillation, characterized by a restoring force proportional to displacement. The mathematical description uses sinusoidal functions, and the calculus connection is profound: SHM arises from a second-order linear ODE. This unit also covers physical pendulums, energy in SHM, and introduces the key features of damped oscillations.",
+      lessons: [
+        {
+          title: "Simple Harmonic Motion — Kinematics and Dynamics",
+          explanation: [
+            "Simple harmonic motion is defined by the condition that the net restoring force is proportional to displacement from equilibrium and directed toward it: $F = -kx$ (the minus sign ensures the restoring nature). By Newton's second law: $m\\ddot{x} = -kx$, or $\\ddot{x} + \\omega^2 x = 0$ where $\\omega = \\sqrt{k/m}$ is the angular frequency.",
+            "The general solution to this ODE is $x(t) = A\\cos(\\omega t + \\phi)$, where $A$ is the amplitude (maximum displacement), $\\omega = 2\\pi f = 2\\pi/T$ is the angular frequency, and $\\phi$ is the phase constant determined by initial conditions. The velocity and acceleration are found by differentiation: $v(t) = -A\\omega\\sin(\\omega t + \\phi)$ and $a(t) = -A\\omega^2\\cos(\\omega t + \\phi) = -\\omega^2 x(t)$.",
+            "Key features of SHM: (1) Period $T = 2\\pi/\\omega = 2\\pi\\sqrt{m/k}$ — independent of amplitude. This isochronism (equal periods for all amplitudes) is a crucial property. (2) At $x = 0$ (equilibrium): speed is maximum ($v_{max} = A\\omega$), acceleration is zero. (3) At $x = \\pm A$ (turning points): speed is zero, acceleration magnitude is maximum ($a_{max} = A\\omega^2$).",
+            "The initial-condition problem: given $x(0) = x_0$ and $v(0) = v_0$, find $A$ and $\\phi$. From $x_0 = A\\cos\\phi$ and $v_0 = -A\\omega\\sin\\phi$: $A = \\sqrt{x_0^2 + (v_0/\\omega)^2}$ and $\\tan\\phi = -v_0/(\\omega x_0)$. This vector-construction approach (phasor diagram) is elegant and generalizable."
+          ],
+          equations: [
+            { formula: "ẍ + ω²x = 0", meaning: "The differential equation of SHM — second-order linear ODE with characteristic frequency ω" },
+            { formula: "x(t) = A cos(ωt + φ)", meaning: "General solution: A = amplitude, ω = angular frequency, φ = phase constant" },
+            { formula: "ω = √(k/m), T = 2π/ω = 2π√(m/k)", meaning: "Angular frequency and period of a spring-mass system — independent of amplitude!" },
+            { formula: "v_max = Aω, a_max = Aω²", meaning: "Maximum speed at equilibrium; maximum acceleration at turning points" }
+          ],
+          mistakes: [
+            "Thinking that larger amplitude means shorter period — for SHM, period is amplitude-independent (isochronism).",
+            "Writing $x(t) = A\\sin(\\omega t)$ without verifying initial conditions — the phase constant $\\phi$ must be determined from $x(0)$ and $v(0)$.",
+            "Confusing angular frequency $\\omega$ (rad/s) with frequency $f$ (Hz) — they differ by $2\\pi$.",
+            "Forgetting that $a = -\\omega^2 x$, so acceleration is maximized at the turning points, not at the center."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A spring-mass system has $k = 80$ N/m and $m = 0.5$ kg. The mass is displaced $0.12$ m and released from rest. Find the period, angular frequency, maximum speed, and maximum acceleration.",
+              a: "$\\omega = \\sqrt{80/0.5} = \\sqrt{160} = 12.65$ rad/s. $T = 2\\pi/12.65 = 0.497$ s. $v_{max} = A\\omega = 0.12(12.65) = 1.52$ m/s. $a_{max} = A\\omega^2 = 0.12(160) = 19.2$ m/s²."
+            },
+            {
+              q: "LEVEL 2 — A 0.3 kg mass on a spring is at $x = 0.05$ m with velocity $v = 0.8$ m/s (in the positive direction) when the clock starts. The spring constant is $k = 75$ N/m. Find the amplitude and phase constant. Write the complete equation $x(t)$.",
+              a: "$\\omega = \\sqrt{75/0.3} = 15.81$ rad/s. $A = \\sqrt{x_0^2 + (v_0/\\omega)^2} = \\sqrt{(0.05)^2 + (0.8/15.81)^2} = \\sqrt{0.0025 + 0.00256} = \\sqrt{0.00506} = 0.0711$ m. $\\tan\\phi = -v_0/(\\omega x_0) = -0.8/(15.81 \\times 0.05) = -1.012 \\Rightarrow \\phi = \\arctan(-1.012) \\approx -45.4°$ (in the fourth quadrant since $\\cos\\phi > 0$). $x(t) = 0.0711\\cos(15.81t - 0.792)$ m."
+            },
+            {
+              q: "LEVEL 3 — A mass $m$ rests on a platform that oscillates vertically as $y(t) = A\\sin(\\omega t)$. (a) Find the acceleration of the platform as a function of time. (b) Find the normal force on the mass as a function of time. (c) Determine the minimum amplitude $A_{min}$ at which the mass will leave the platform. (d) Show that the mass leaves the platform when $A > g/\\omega^2$ and identify when in the cycle this first occurs.",
+              a: "(a) $a_{plat} = \\ddot{y} = -A\\omega^2\\sin(\\omega t)$. (b) $N - mg = ma_{plat} \\Rightarrow N = m(g + a_{plat}) = m(g - A\\omega^2\\sin\\omega t)$. (c) Mass leaves when $N = 0$: $g = A\\omega^2\\sin(\\omega t) \\Rightarrow$ for this to have a solution, need $A\\omega^2 \\ge g$, so $A_{min} = g/\\omega^2$. (d) First occurs when $\\sin(\\omega t) = 1$, i.e., $\\omega t = \\pi/2$ (when platform is at its lowest... wait: $y = A\\sin\\omega t$ so lowest is at $\\omega t = 3\\pi/2$). Check: $N = m(g - A\\omega^2\\sin\\omega t)$. Minimum $N$ when $\\sin\\omega t = 1$ (maximum positive): $y_{max}$ is at top, $a_{plat}$ is most negative (downward). So mass first loses contact at the top of the oscillation, $\\omega t = \\pi/2$."
+            }
+          ],
+          frq: "A block of mass $m$ is attached to a spring of constant $k$ on a frictionless horizontal surface. At $t = 0$, the block is at equilibrium and given impulse $J = mv_0$ in the positive $x$-direction. (a) Verify that $x(t) = \\frac{v_0}{\\omega}\\sin(\\omega t)$ satisfies both the differential equation and initial conditions. (b) At time $t_1 = \\pi/(2\\omega)$, a second identical block drops vertically and sticks to the first. Determine the new amplitude and phase of the oscillation immediately after the collision. (c) Compare the energy before and after the collision and account for any difference. (d) Derive the new equation of motion $x(t)$ for $t > t_1$. (e) Sketch $x(t)$ for $0 < t < 3T$, clearly showing the discontinuity in amplitude at $t_1$.",
+          video: { title: "Simple Harmonic Motion — Differential Equation and Solutions", url: "https://www.youtube.com/embed/AP-TSIhp16Y" }
+        },
+        {
+          title: "Pendulums and Energy in SHM",
+          explanation: [
+            "A simple pendulum of length $L$ and mass $m$ has the equation of motion $\\ddot{\\theta} + \\frac{g}{L}\\sin\\theta = 0$. For small angles ($\\theta \\ll 1$ rad), $\\sin\\theta \\approx \\theta$, giving $\\ddot{\\theta} + \\frac{g}{L}\\theta = 0$ — SHM with $\\omega = \\sqrt{g/L}$ and $T = 2\\pi\\sqrt{L/g}$. This small-angle approximation is essential and must always be stated.",
+            "A physical pendulum (extended rigid body) pivots about a fixed axis at distance $d$ from the CM. The torque about the pivot is $\\tau = -mgd\\sin\\theta \\approx -mgd\\theta$ (small angles). Newton's second law for rotation: $I\\alpha = -mgd\\theta \\Rightarrow \\ddot{\\theta} + \\frac{mgd}{I}\\theta = 0$. Period: $T = 2\\pi\\sqrt{I/(mgd)}$. This reduces to the simple pendulum when $I = mL^2$ and $d = L$.",
+            "Energy in SHM oscillates between kinetic and potential form with constant total. For a spring-mass system: $E = \\frac{1}{2}kA^2 = $ constant (total mechanical energy). At position $x$: $KE = \\frac{1}{2}m\\omega^2(A^2-x^2)$ and $PE = \\frac{1}{2}kx^2 = \\frac{1}{2}m\\omega^2 x^2$. From energy: $v(x) = \\omega\\sqrt{A^2-x^2}$ — a useful velocity-position relation without involving time.",
+            "The speed-position relation $v = \\omega\\sqrt{A^2 - x^2}$ comes from energy conservation: $\\frac{1}{2}mv^2 + \\frac{1}{2}kx^2 = \\frac{1}{2}kA^2$. This is an ellipse in phase space ($v$ vs. $x$) — all points at the same energy trace the same ellipse."
+          ],
+          equations: [
+            { formula: "ω = √(g/L), T = 2π√(L/g)", meaning: "Simple pendulum (small angles only): period depends on length and gravity, not mass or amplitude" },
+            { formula: "T_phys = 2π√(I/mgd)", meaning: "Physical pendulum period: I = moment of inertia about pivot, d = distance from pivot to CM" },
+            { formula: "E = ½kA² = ½mv² + ½kx²", meaning: "Total mechanical energy in SHM — constant throughout oscillation" },
+            { formula: "v(x) = ω√(A²−x²)", meaning: "Speed as a function of position in SHM — maximum at center, zero at turning points" }
+          ],
+          mistakes: [
+            "Applying the pendulum period formula without verifying the small-angle approximation — for $\\theta > 15°$, significant error occurs.",
+            "Forgetting that the pendulum period is independent of mass — it depends only on $L$ and $g$.",
+            "Using $E = \\frac{1}{2}kA^2$ for a pendulum — the potential energy of a pendulum is $U = mgL(1-\\cos\\theta)$, not $\\frac{1}{2}k\\theta^2$ (though for small angles, $U \\approx \\frac{1}{2}(mgL)\\theta^2$, so $k_{eff} = mgL$).",
+            "For a physical pendulum, using the CM as the pivot point — the pivot is the actual support point, not the CM."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — A simple pendulum on Earth has period 2.0 s. (a) Find its length. (b) What would its period be on the Moon ($g_{moon} = 1.62$ m/s²)?",
+              a: "(a) $T = 2\\pi\\sqrt{L/g} \\Rightarrow L = g(T/2\\pi)^2 = 9.8(2/2\\pi)^2 = 9.8(0.1013) = 0.993$ m ≈ 1.0 m. (b) $T_{moon} = 2\\pi\\sqrt{1.0/1.62} = 2\\pi(0.786) = 4.94$ s."
+            },
+            {
+              q: "LEVEL 2 — A uniform rod of mass $M$ and length $L$ is pivoted at one end and swings as a physical pendulum. (a) Find the period. (b) Find the length of the equivalent simple pendulum (the length that gives the same period). This length is called the 'center of oscillation.'",
+              a: "(a) $I = ML^2/3$, $d = L/2$ (CM at center). $T = 2\\pi\\sqrt{I/(Mgd)} = 2\\pi\\sqrt{\\frac{ML^2/3}{Mg\\cdot L/2}} = 2\\pi\\sqrt{\\frac{2L}{3g}}$. (b) Equivalent length: $T = 2\\pi\\sqrt{L_{eq}/g} \\Rightarrow L_{eq} = \\frac{2L}{3}$. The center of oscillation is at $2L/3$ from the pivot."
+            },
+            {
+              q: "LEVEL 3 — A mass $m$ on a spring ($k$) oscillates with amplitude $A$. At the instant the mass passes through equilibrium moving in the positive direction, a lump of clay of mass $m$ (falling vertically) lands on it and sticks. (a) Find the new amplitude. (b) Now redo: the clay lands when the mass is at maximum displacement. Find the new amplitude. (c) Explain the physical difference between (a) and (b).",
+              a: "(a) At equilibrium, $v = A\\omega = A\\sqrt{k/m}$. After collision: $mv = (2m)v' \\Rightarrow v' = v/2 = \\frac{A}{2}\\sqrt{k/m}$. New $\\omega' = \\sqrt{k/2m}$. At equilibrium, all energy is kinetic: $\\frac{1}{2}(2m)v'^2 = \\frac{1}{2}kA'^2 \\Rightarrow A' = v'/\\omega' = \\frac{A}{2}\\sqrt{k/m}/\\sqrt{k/2m} = \\frac{A}{2}\\sqrt{2} = \\frac{A}{\\sqrt{2}}$. (b) At max displacement, $v = 0$. After collision: clay doesn't change momentum (clay has zero horizontal momentum). Equilibrium position unchanged. $x = A$ becomes new initial condition with $v' = 0$. New amplitude = $A$ (unchanged). (c) In (a), the collision at equilibrium removes half the kinetic energy (clay arrives with no horizontal momentum), reducing amplitude. In (b), the clay arrives when KE = 0 and doesn't change horizontal momentum, so energy is unchanged and amplitude is unchanged."
+            }
+          ],
+          frq: "A torsion pendulum consists of a disk of mass $M$, radius $R$, and moment of inertia $I = \\frac{1}{2}MR^2$ suspended by a wire with torsional spring constant $\\kappa$ (restoring torque $\\tau = -\\kappa\\theta$). (a) Derive the equation of motion and show it is SHM. (b) Find the period $T$. (c) The disk is given initial angular displacement $\\theta_0$ and angular velocity $\\omega_0$ (in the same direction as $\\theta_0$). Find the amplitude of oscillation and write the complete equation $\\theta(t)$. (d) Two small masses $m$ are placed on the disk at radius $r$ (diametrically opposite). How does this change the period? (e) Derive the minimum $\\kappa$ such that the disk will not exceed angular displacement $\\theta_{max}$ when given initial conditions from part (c).",
+          video: { title: "Pendulum SHM and Energy — AP Physics C Mechanics", url: "https://www.youtube.com/embed/yVkdfJ9PkRQ" }
+        },
+        {
+          title: "Damped Oscillations",
+          explanation: [
+            "Real oscillators lose energy due to resistive forces. For a linear damping force $F_d = -b\\dot{x}$, the equation of motion becomes $m\\ddot{x} + b\\dot{x} + kx = 0$. Dividing by $m$: $\\ddot{x} + 2\\beta\\dot{x} + \\omega_0^2 x = 0$ where $\\beta = b/(2m)$ (damping constant) and $\\omega_0 = \\sqrt{k/m}$ (natural frequency).",
+            "The solution type depends on the discriminant: (1) Underdamped ($\\beta < \\omega_0$): $x(t) = Ae^{-\\beta t}\\cos(\\omega_d t + \\phi)$ where $\\omega_d = \\sqrt{\\omega_0^2 - \\beta^2}$ (damped frequency). Oscillations occur but decay exponentially. (2) Critically damped ($\\beta = \\omega_0$): $x(t) = (C_1 + C_2 t)e^{-\\beta t}$. Returns to equilibrium fastest without oscillating. (3) Overdamped ($\\beta > \\omega_0$): returns to equilibrium exponentially, more slowly than critical damping.",
+            "The quality factor $Q = \\omega_0/(2\\beta)$ characterizes the damping. High $Q$ means light damping, many oscillations before amplitude decays significantly. The energy decays as $E(t) = E_0 e^{-2\\beta t} = E_0 e^{-t/\\tau_E}$ where $\\tau_E = 1/(2\\beta) = m/b$. The amplitude decays as $e^{-\\beta t}$, but energy decays as $e^{-2\\beta t}$ (because $E \\propto A^2$).",
+            "Resonance occurs when a driven oscillator is forced at or near its natural frequency. The resonance frequency for maximum amplitude is $\\omega_{res} = \\sqrt{\\omega_0^2 - 2\\beta^2}$ (for lightly damped systems, $\\approx \\omega_0$). At resonance, the amplitude is largest and the driving force is in phase with the velocity (quadrature with displacement)."
+          ],
+          equations: [
+            { formula: "mẍ + bẋ + kx = 0", meaning: "Damped harmonic oscillator ODE — force, damping, and restoring force" },
+            { formula: "x(t) = Ae^{−βt}cos(ω_d t + φ)", meaning: "Underdamped solution: decaying amplitude envelope times oscillatory factor" },
+            { formula: "ω_d = √(ω₀² − β²)", meaning: "Damped angular frequency — always less than natural frequency" },
+            { formula: "E(t) = E₀e^{−2βt}", meaning: "Energy decays twice as fast as amplitude (since E ∝ A²)" }
+          ],
+          mistakes: [
+            "Using the undamped period formula $T = 2\\pi\\sqrt{m/k}$ for a damped system — the correct period is $T_d = 2\\pi/\\omega_d$.",
+            "Thinking critically damped systems oscillate — they return to equilibrium asymptotically without crossing zero.",
+            "Confusing the decay rate of amplitude ($e^{-\\beta t}$) with the decay rate of energy ($e^{-2\\beta t}$).",
+            "For resonance, assuming maximum amplitude occurs at exactly $\\omega_0$ — for damped systems, the peak is at $\\omega_{res} < \\omega_0$ (slightly below)."
+          ],
+          practice: [
+            {
+              q: "LEVEL 1 — An underdamped oscillator has $m = 0.5$ kg, $k = 50$ N/m, $b = 1.5$ kg/s. Find the natural frequency, damping constant $\\beta$, damped frequency, and Q-factor.",
+              a: "$\\omega_0 = \\sqrt{50/0.5} = 10$ rad/s. $\\beta = b/(2m) = 1.5/1 = 1.5$ s⁻¹. $\\omega_d = \\sqrt{100-2.25} = \\sqrt{97.75} = 9.887$ rad/s. $Q = \\omega_0/(2\\beta) = 10/3 = 3.33$."
+            },
+            {
+              q: "LEVEL 2 — An underdamped oscillator starts at $x_0 = 0.10$ m with $v_0 = 0$. After 5 complete oscillations, the amplitude has decreased to $0.040$ m. Find $\\beta$ and the time for the amplitude to decrease to $1/e$ of its initial value.",
+              a: "After $n = 5$ periods: $A_5 = A_0 e^{-\\beta \\cdot 5T_d} = 0.040$. $e^{-5T_d \\beta} = 0.40 \\Rightarrow -5T_d \\beta = \\ln(0.40) = -0.916$. Need $T_d = 2\\pi/\\omega_d \\approx 2\\pi/\\omega_0$ (lightly damped). Approx: $T_d \\approx T_0$. Need $\\omega_0$ from problem: assume given $\\omega_0 = 2\\pi$ rad/s so $T_0 = 1$ s. Then $\\beta = 0.916/5 = 0.183$ s⁻¹. $\\tau_{amp} = 1/\\beta = 5.46$ s."
+            },
+            {
+              q: "LEVEL 3 — Show that for an underdamped oscillator, the ratio of successive amplitudes in each full period is constant (the 'logarithmic decrement'). Let this ratio be $r = A_{n+1}/A_n$. Express $r$ in terms of $\\beta$ and $\\omega_d$. Then show that the energy decays as $E_n = E_0 r^{2n}$ after $n$ cycles.",
+              a: "$A_n = A_0 e^{-\\beta nT_d}$. $A_{n+1} = A_0 e^{-\\beta(n+1)T_d}$. Ratio: $r = e^{-\\beta T_d} = e^{-2\\pi\\beta/\\omega_d}$. The logarithm of $1/r$ is the logarithmic decrement: $\\delta = \\beta T_d = 2\\pi\\beta/\\omega_d$. Energy $\\propto A^2$: $E_n \\propto A_n^2 = A_0^2 e^{-2\\beta n T_d} = E_0 (e^{-\\beta T_d})^{2n} = E_0 r^{2n}$. ✓ The energy ratio per cycle is $r^2 = e^{-2\\delta}$."
+            }
+          ],
+          frq: "A door closer (damped spring mechanism) must return a door from 90° open to within 5° of closed within 3 seconds without oscillating. Model the door as a uniform rod of mass $M = 8$ kg, width $w = 0.9$ m, pivoted at one edge. The spring constant is $k_{eff}$ and the damping is $b$. (a) Find the moment of inertia of the door about the hinge. (b) Write the ODE for the angular displacement $\\theta$. (c) For critical damping, find the relationship between $b$ and $k_{eff}$. (d) Solve the critically-damped solution with $\\theta(0) = \\pi/2$ and $\\dot{\\theta}(0) = 0$. (e) Apply the condition $\\theta(3) = 5\\pi/180$ to find the required $k_{eff}$ and $b$. (f) Verify the door does not overshoot (i.e., that $\\theta(t) > 0$ for all $t > 0$).",
+          video: { title: "Damped Harmonic Oscillator — Physics C Mechanics", url: "https://www.youtube.com/embed/99ZE2RGwqSM" }
+        }
+      ]
+    }
+  ]
+};
+
+// ─── Render Sidebar ──────────────────────────────────────────────────────────
+function renderSidebar() {
+  const nav = document.getElementById('unit-nav');
+  COURSE.units.forEach((unit, i) => {
+    const a = document.createElement('a');
+    a.className = 'unit-nav-item';
+    a.href = '#unit-' + unit.id;
+    a.innerHTML = `<div class="unit-num">UNIT ${i+1}</div><div class="unit-name">${unit.title}</div>`;
+    nav.appendChild(a);
+  });
+}
+
+// ─── Render Course ───────────────────────────────────────────────────────────
+function renderCourse() {
+  const container = document.getElementById('course-content');
+  COURSE.units.forEach((unit, ui) => {
+    const section = document.createElement('div');
+    section.className = 'unit-section';
+    section.id = 'unit-' + unit.id;
+
+    let lessonsHTML = '';
+    unit.lessons.forEach((lesson, li) => {
+      const lessonId = `lesson-${ui}-${li}`;
+      lessonsHTML += `
+        <div class="lesson-card" id="${lessonId}">
+          <div class="lesson-header" onclick="toggleLesson('${lessonId}')">
+            <div class="lesson-header-left">
+              <span class="lesson-num">LESSON ${li+1}</span>
+              <span class="lesson-title">${lesson.title}</span>
+            </div>
+            <span class="lesson-toggle">▶</span>
+          </div>
+          <div class="lesson-body">
+            <div class="section-title">Deep Explanation</div>
+            <div class="explanation">${lesson.explanation.map(p => `<p>${p}</p>`).join('')}</div>
+
+            <div class="section-title">Key Equations</div>
+            <div class="equations-grid">
+              ${lesson.equations.map(eq => `
+                <div class="eq-card">
+                  <div class="eq-formula">${eq.formula}</div>
+                  <div class="eq-meaning">${eq.meaning}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="section-title">Common Mistakes</div>
+            <div class="mistakes-list">
+              ${lesson.mistakes.map(m => `<div class="mistake-item">${m}</div>`).join('')}
+            </div>
+
+            <div class="section-title">Practice Problems</div>
+            <div class="practice-list">
+              ${lesson.practice.map((p, pi) => `
+                <div class="practice-item">
+                  <div class="practice-q"><strong>PROBLEM ${pi+1}</strong>${p.q}</div>
+                  <button class="reveal-btn" onclick="revealAnswer(this)">▼ REVEAL ANSWER</button>
+                  <div class="practice-answer">${p.a}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="section-title">AP-Style Free Response Question</div>
+            <div class="frq-box">
+              <span class="frq-label">Free Response Question</span>
+              ${lesson.frq}
+            </div>
+
+            <div class="section-title">Video Lesson</div>
+            <div class="video-wrapper">
+              <div class="video-label">
+                <div class="play-icon">▶</div>
+                <span class="vtitle">${lesson.video.title}</span>
+              </div>
+              <div class="video-iframe-wrap">
+                <iframe src="${lesson.video.url}" allowfullscreen loading="lazy"
+                  title="${lesson.video.title}"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    section.innerHTML = `
+      <div class="unit-header">
+        <span class="unit-number-badge">UNIT ${ui+1}</span>
+        <div class="unit-header-text">
+          <h2>${unit.title}</h2>
+          <div class="unit-overview">${unit.overview}</div>
+        </div>
+      </div>
+      ${lessonsHTML}
+    `;
+    container.appendChild(section);
+  });
+}
+
+// ─── Toggle Lesson ───────────────────────────────────────────────────────────
+function toggleLesson(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// ─── Reveal Answer ───────────────────────────────────────────────────────────
+function revealAnswer(btn) {
+  const answer = btn.nextElementSibling;
+  answer.classList.toggle('visible');
+  btn.textContent = answer.classList.contains('visible') ? '▲ HIDE ANSWER' : '▼ REVEAL ANSWER';
+}
+
+// ─── Progress Bar ─────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrollTop = window.scrollY || doc.scrollTop;
+  const scrollHeight = doc.scrollHeight - doc.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = progress + '%';
+});
+
+// ─── Active nav ───────────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.unit-nav-item').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+renderSidebar();
+renderCourse();
+document.querySelectorAll('.unit-section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
